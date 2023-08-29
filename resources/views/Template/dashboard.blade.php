@@ -76,7 +76,7 @@
                                 <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Mon profil</a>
                             </li>
                             <li>
-                                <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Paramètres</a>
+                                <a href="{{route('setting.show')}}" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Paramètres</a>
                             </li>
                         </ul>
 
@@ -114,7 +114,7 @@
 
   <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200 border-dashed  dark:border-gray-700 ">
-
+        @yield('content')
     </div>
  </div>
 
