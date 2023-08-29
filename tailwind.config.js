@@ -13,9 +13,12 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                roboto:['Roboto']
             },
         },
     },
 
-    plugins: [forms],
+    plugins: [forms,
+        require('flowbite/plugin')
+    ],
 };
