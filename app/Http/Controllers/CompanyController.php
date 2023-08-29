@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -68,15 +69,15 @@ class CompanyController extends Controller
         if ($company->save()) {
             $user = User::find(Auth::user()->id);
             $user->company()->associate($company)->save();
-            
+
             if ($request->hasFile('logo')) {
                 $path = $request->file('logo')->store('logo');
-                
+
                 $company->logo = $path;
                 $company->save();
             }
             Session::flash('status', "Les informations sur l'entreprise ont été ajoutées avec succès");
-            
+
             return redirect()->route('company.index');
         }
     }
@@ -118,7 +119,7 @@ class CompanyController extends Controller
             'rc' => 'required|string|max:9',
             'patente'=>'required|string|max:10',
         ]);
-        
+
         $company = Company::find($id);
         $company->ice = $request->input('ice');
         $company->nom = $request->input('nom');
@@ -134,9 +135,12 @@ class CompanyController extends Controller
         if($company->save()){
 
         if ($request->hasFile('logo')) {
-                    $path = $request->file('logo')->store('logo');
-                    $company->logo = $path;
-                    $company->save();
+                    if($company->logo ){
+                        Storage::delete($company->logo);
+                        $path = $request->file('logo')->store('logo');
+                        $company->logo = $path;
+                        $company->save();
+                    }
                 }
 
          Session::flash('status', 'les informations sur la société ont été bien modifiées');
@@ -144,7 +148,7 @@ class CompanyController extends Controller
         }
         return redirect()->route('company.index');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -157,7 +161,7 @@ class CompanyController extends Controller
             $user->save();
             Session::flash('status', "L'entreprise a été suprimée");
         }
-        return redirect()->route('companies.show');
+        return redirect()->route('company.index');
 
 
     }
