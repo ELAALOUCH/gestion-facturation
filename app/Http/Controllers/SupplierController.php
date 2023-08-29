@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class SupplierController extends Controller
 {
@@ -11,7 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers= Supplier::paginate(5);
+        return view('suppliers.index',compact('suppliers'));
     }
 
     /**
@@ -19,7 +24,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -27,7 +32,27 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'ice' => 'required|string|size:15',
+            'nom' => 'required|string|max:255',
+            'telephone' => 'size:10',
+            'site_web' => 'nullable|string',
+            'email' => 'email',
+            'adresse' => 'string|max:255',
+
+        ]);
+        $supplier = new Supplier();
+        $supplier->ice = $request->input('ice');
+        $supplier->nom = $request->input('nom');
+        $supplier->telephone = $request->input('telephone');
+        $supplier->email = $request->input('email');
+        $supplier->site_web = $request->input('site_web');
+        $supplier->adresse = $request->input('adresse');
+        $supplier->save();
+        if ($supplier->save()) {
+            Session::flash('status', "Le fournissure a été ajouté ");
+        }
+        return redirect()->route('supplier.index');
     }
 
     /**
@@ -43,7 +68,9 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('suppliers.edit',[
+            'supplier' =>Supplier::find($id)
+        ]);
     }
 
     /**
@@ -51,14 +78,39 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $validated = $request->validate([
+            'ice' => 'required|string|size:15',
+            'nom' => 'required|string|max:255',
+            'telephone' => 'size:10',
+            'site_web' => 'nullable|string',
+            'email' => 'email',
+            'adresse' => 'string|max:255',
+
+        ]);
+        $supplier = Supplier::find($id);
+        $supplier->ice = $request->input('ice');
+        $supplier->nom = $request->input('nom');
+        $supplier->telephone = $request->input('telephone');
+        $supplier->email = $request->input('email');
+        $supplier->site_web = $request->input('site_web');
+        $supplier->adresse = $request->input('adresse');
+        $supplier->save();
+        if ($supplier->save()) {
+            Session::flash('status', "Le fournissure a été modifié ");
+        }
+        return redirect()->route('supplier.index');    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        if ((Supplier::where('id', $id)->delete()))
+        {
+            Session::flash('status', "Le fournisseur a été supprimé");
+        }
+        return redirect()->route('supplier.index');
+
     }
+
 }
