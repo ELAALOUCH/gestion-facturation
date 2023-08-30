@@ -13,11 +13,15 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $suppliers= Supplier::paginate(5);
-        return view('suppliers.index',compact('suppliers'));
+        $tab='index';
+        return view('suppliers.index',compact('suppliers','tab'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,6 +29,13 @@ class SupplierController extends Controller
     public function create()
     {
         return view('suppliers.create');
+    }
+
+    public function archive()
+    {
+        $suppliers= Supplier::onlyTrashed()->paginate(5);
+        $tab = 'archive';
+        return view('suppliers.archive',compact('suppliers','tab'));
     }
 
     /**
@@ -122,7 +133,7 @@ class SupplierController extends Controller
     {
         $keyword = $request->input('keyword');
         $number = $request->input('number');
-
+        $tab='index';
         $suppliers = Supplier::where('email', 'LIKE', "%$keyword%")
                             ->orWhere('telephone', 'LIKE', "%$keyword%")
                             ->orWhere('nom', 'LIKE', "%$keyword%")
@@ -133,7 +144,36 @@ class SupplierController extends Controller
                             ->paginate($number)
                             ->appends(['keyword' => $keyword, 'number' => $number]);
 
-        return view('suppliers.index', compact('suppliers'));
+        return view('suppliers.index', compact('suppliers','tab'));
+    }
+
+    public function searchArchive(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $number = $request->input('number');
+        $tab='archive';
+        $suppliers = Supplier::onlyTrashed()->where('email', 'LIKE', "%$keyword%")
+                            ->orWhere('telephone', 'LIKE', "%$keyword%")
+                            ->orWhere('nom', 'LIKE', "%$keyword%")
+                            ->orWhere('ice', 'LIKE', "%$keyword%")
+                            ->orWhere('adresse', 'LIKE', "%$keyword%")
+                            ->orWhere('ville', 'LIKE', "%$keyword%")
+                            ->orWhere('site_web', 'LIKE', "%$keyword%")
+                            ->paginate($number)
+                            ->appends(['keyword' => $keyword, 'number' => $number]);
+
+        return view('suppliers.archive', compact('suppliers','tab'));
+    }
+
+    public function restore($id)
+    {
+        $supplier = Supplier::withTrashed()->find($id);
+
+        if ($supplier) {
+            $supplier->restore();
+        }
+
+        return redirect()->back();
     }
 
 }

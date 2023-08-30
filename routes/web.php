@@ -35,8 +35,12 @@ Route::middleware('auth')->group(function () {
     //les routes de fournisseur
     Route::resource('supplier',SupplierController::class);
 
-    Route::get('supplier.search', [SupplierController::class,'search'])->name('supplier.search');
+    Route::get('supplier.archive',[SupplierController::class ,'archive'])->name('supplier.archive');
 
+
+    Route::get('supplier.search', [SupplierController::class,'search'])->name('supplier.search');
+    Route::get('supplier.searchArchive', [SupplierController::class,'searchArchive'])->name('supplier.searchArchive');
+    Route::patch('/supplier/{id}/restore',[SupplierController::class,'restore'])->name('supplier.restore');
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');
 
