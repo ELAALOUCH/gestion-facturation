@@ -2,23 +2,7 @@
 
 @section('content')
     <section class="bg-white dark:bg-gray-900">
-        @if ($errors->any())
-            <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                </svg>
-                <span class="sr-only">Danger</span>
-                <div>
-                    <span class="font-medium">Assurez-vous que ces exigences sont remplies :</span>
-                    <ul class="mt-1.5 ml-4 list-disc list-inside">
-                    @foreach ($errors->all() as $error )
-                    <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-
-                </div>
-            </div>
-        @endif
+        
         <nav class="flex px-10" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
@@ -47,6 +31,24 @@
             </li>
             </ol>
         </nav>
+        @if ($errors->any())
+            <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Danger</span>
+                <div>
+                    <span class="font-medium">Assurez-vous que ces exigences sont remplies :</span>
+                    <ul class="mt-1.5 ml-4 list-disc list-inside">
+                    @foreach ($errors->all() as $error )
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+                </div>
+            </div>
+        @endif
+
+
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-10">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un fournisseur</h2>
             <form action="{{route('supplier.update',['supplier' =>$supplier->id])}}" method="POST"  >

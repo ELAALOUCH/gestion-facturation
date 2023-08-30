@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('company',CompanyController::class);
     //les routes de fournisseur
     Route::resource('supplier',SupplierController::class);
+
+    Route::get('supplier.search', [SupplierController::class,'search'])->name('supplier.search');
+
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');
 

@@ -79,7 +79,7 @@ class SupplierController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'ice' => 'required|string|size:15',
+            'ice' => 'required|string|max:255',
             'nom' => 'required|string|max:255',
             'telephone' => 'size:10',
             'site_web' => 'nullable|string',
@@ -111,6 +111,20 @@ class SupplierController extends Controller
         }
         return redirect()->route('supplier.index');
 
+    }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $number = $request->input('number');
+
+        $suppliers = Supplier::where('email', 'LIKE', "%$keyword%")
+                            ->orWhere('telephone', 'LIKE', "%$keyword%")
+                            ->orWhere('adresse', 'LIKE', "%$keyword%")
+                            ->orWhere('site_web', 'LIKE', "%$keyword%")
+                            ->paginate($number)
+                            ->appends(['keyword' => $keyword, 'number' => $number]);
+
+        return view('suppliers.index', compact('suppliers'));
     }
 
 }
