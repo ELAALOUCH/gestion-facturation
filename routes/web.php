@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -34,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('company',CompanyController::class);
     //les routes de fournisseur
     Route::resource('supplier',SupplierController::class);
+    //les routes de categorie
+    Route::resource('category',CategoryController::class)->except(['show']);
 
     Route::get('supplier.archive',[SupplierController::class ,'archive'])->name('supplier.archive');
 
