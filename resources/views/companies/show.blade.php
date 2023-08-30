@@ -40,16 +40,16 @@
         </div>
       </div>
       <div class="flex flex-row gap-x-4">
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="{{route('company.edit',['company'=>$company->id])}}">
+        <button class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"><a href="{{route('company.edit',['company'=>$company->id])}}">
             Modifier</a>
         </button>
-        <button id="deleteButton" data-modal-toggle="deleteModal" class="block text-white bg-red-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
+        <button id="deleteButton" data-modal-toggle="deleteModal" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="button">
             Supprimer
          </button>
       </div>
     </form>
     <div class="w-1/3 flex flex-row justify-center items-center ">
-        <img class="rounded-full w-64 h-64" src= {{ (Storage::url($company->logo)) ?? null}} alt="">
+        <img class="rounded-full w-24 h-24 lg:w-64 lg:h-64" src= {{ (Storage::url($company->logo)) ?? null}} alt="">
     </div>
 </div>
     <!-- Main modal Pour la supression -->

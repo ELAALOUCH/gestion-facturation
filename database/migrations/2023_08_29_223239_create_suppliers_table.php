@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('ice',15);
             $table->string('nom',255);
             $table->string('email',255);
+            $table->string('ville',255);
             $table->string('telephone', 10);
             $table->text('adresse');
             $table->string('site_web', 255)->nullable();
             $table->timestamps();
+
         });
     }
 

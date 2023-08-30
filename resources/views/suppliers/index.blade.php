@@ -3,29 +3,6 @@
 @section('content')
 
 
-
-        <nav class="flex px-10" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-            <li class="inline-flex items-center">
-                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-                </svg>
-                Home
-                </a>
-            </li>
-
-            <li aria-current="page">
-                <div class="flex items-center">
-                <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                </svg>
-                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"> Les fournisseurs</span>
-                </div>
-            </li>
-            </ol>
-        </nav>
-
             {{--session message --}}
         @if (session()->has('status'))
         <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
@@ -38,6 +15,28 @@
             </div>
         </div>
        @endif
+
+       <div class="border-b border-gray-200 dark:border-gray-700 pl-6">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <li class="mr-2">
+                <a href="#" class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
+
+                    <svg class="w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 1h10M6 5h10M6 9h10M1.49 1h.01m-.01 4h.01m-.01 4h.01"/>
+                      </svg>
+                    List
+                </a>
+            </li>
+            <li class="mr-2">
+                <a href="#" class="inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
+                    <svg class="w-4 h-4 mr-2 text-blue-600 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z"/>
+                      </svg>
+                    Archive
+                </a>
+            </li>
+
+    </div>
 
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-4">
@@ -81,6 +80,7 @@
                             <tr>
                                 <th scope="col" class="px-4 py-4 font-roboto ">ice</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">nom</th>
+                                <th scope="col" class="px-4 py-3 font-roboto">ville</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">email</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">telephone</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">adresse</th>
@@ -94,7 +94,11 @@
                     @foreach ( $suppliers as $supplier )
                         <tr class="border-b dark:border-gray-700">
                             <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->ice}}</td>
-                            <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->nom}}</td>
+                            <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">
+                                <span class="bg-blue-100 text-blue-800  font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{{$supplier->nom}}</span>
+                            </td>
+                            <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->ville}}</td>
+
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->email}}</td>
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->telephone}}</td>
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->adresse}}</td>

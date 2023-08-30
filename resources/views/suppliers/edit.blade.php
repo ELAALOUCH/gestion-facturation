@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="bg-white dark:bg-gray-900">
-        
+
         <nav class="flex px-10" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
@@ -55,7 +55,7 @@
                 @method('PUT')
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                    <div class="sm:col-span-2">
+                    <div class="w-fulle">
                         <label for="ice" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">ICE</label>
                         <input type="text" name="ice" id="ice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$supplier->ice)}}">
                     </div>
@@ -63,6 +63,10 @@
                     <div class="w-full">
                         <label for="nom" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">NOM</label>
                         <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('nom',$supplier->nom)}}">
+                    </div>
+                    <div class="w-full">
+                        <label for="ville" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">VILLE</label>
+                        <input type="text" name="ville" id="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$supplier->ville)}}">
                     </div>
                     <div>
                         <label for="email" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>

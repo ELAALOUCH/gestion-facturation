@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class SettingController extends Controller
 {
     public function show (){
-        return view('settings.show');
+        return view('settings.show',['tab'=>'']);
     }
 }

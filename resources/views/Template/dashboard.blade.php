@@ -97,10 +97,22 @@
 
   <aside id="logo-sidebar" class="fixed bg-blue-950 top-0 left-0 z-40 w-64 h-screen  transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 " aria-label="Sidebar">
 
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-950 pt-20  ">
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-950 pt-4 ">
         <ul class="space-y-2 font-medium">
+            @if (Auth::check() && Auth::user()->company)
+            <li class="flex justify-center items-center">
+                <img class="rounded-full w-24 h-24 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]" src="{{ Storage::url(Auth::user()->company->logo)}}" alt="image description " >
+            </li>
+            <li>
+                <h1 class="text-white text-center font-mono text-blue-800 font-bold">
+                Gestion
+                    <br class="text-center">
+                    Stock et Facturation
+                  </h1>
+            </li>
+            @endif
            <li>
-              <a href="#" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-10">
+              <a href="#" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200  @if (Auth::check() && Auth::user()->company) pt-5 @else pt-[150px] @endif">
                  <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                     <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                     <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
@@ -109,7 +121,7 @@
               </a>
            </li>
            <li>
-            <a href="#" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-6 ">
+            <a href="{{route('supplier.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-6 ">
                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
                     <path d="M10.013 4.175 5.006 7.369l5.007 3.194-5.007 3.193L0 10.545l5.006-3.193L0 4.175 5.006.981l5.007 3.194ZM4.981 15.806l5.006-3.193 5.006 3.193L9.987 19l-5.006-3.194Z"/>
                     <path d="m10.013 10.545 5.006-3.194-5.006-3.176 4.98-3.194L20 4.175l-5.007 3.194L20 10.562l-5.007 3.194-4.98-3.211Z"/>

@@ -24,6 +24,8 @@ class SupplierFactory extends Factory
             'telephone' => fake()->regexify('06\d{8}'),
             'adresse' => fake()->address,
             'site_web' => fake()->url,
+            'ville' => fake()->city,
+
         ];
     }
 }

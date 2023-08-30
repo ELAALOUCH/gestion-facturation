@@ -17,11 +17,11 @@ class CompanyController extends Controller
     public function index()
     {
         if(!Auth::user()->company){
-            return view('companies.info');
+            return view('companies.info',['tab'=>'company']);
         }
         $company = Auth::user()->company;
-
-        return view('companies.show',compact('company'));
+        $tab = 'company';
+        return view('companies.show',compact('company','tab'));
     }
 
     /**
@@ -29,7 +29,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('companies.create');
+        $tab = 'company';
+
+        return view('companies.create',compact('tab'));
     }
 
     /**
@@ -96,7 +98,8 @@ class CompanyController extends Controller
     public function edit(string $id)
     {
         return view('companies.edit',[
-            'company' => Company::find($id)
+            'company' => Company::find($id),
+            'tab'=>'company'
         ]);
     }
 

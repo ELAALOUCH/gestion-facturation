@@ -39,12 +39,15 @@ class SupplierController extends Controller
             'site_web' => 'nullable|string',
             'email' => 'email',
             'adresse' => 'string|max:255',
+            'ville'=>'required|string|max:255'
+
 
         ]);
         $supplier = new Supplier();
         $supplier->ice = $request->input('ice');
         $supplier->nom = $request->input('nom');
         $supplier->telephone = $request->input('telephone');
+        $supplier->ville = $request->input('ville');
         $supplier->email = $request->input('email');
         $supplier->site_web = $request->input('site_web');
         $supplier->adresse = $request->input('adresse');
@@ -85,6 +88,7 @@ class SupplierController extends Controller
             'site_web' => 'nullable|string',
             'email' => 'email',
             'adresse' => 'string|max:255',
+            'ville'=>'required|string|max:255'
 
         ]);
         $supplier = Supplier::find($id);
@@ -92,6 +96,8 @@ class SupplierController extends Controller
         $supplier->nom = $request->input('nom');
         $supplier->telephone = $request->input('telephone');
         $supplier->email = $request->input('email');
+        $supplier->ville = $request->input('ville');
+
         $supplier->site_web = $request->input('site_web');
         $supplier->adresse = $request->input('adresse');
         $supplier->save();
@@ -119,7 +125,10 @@ class SupplierController extends Controller
 
         $suppliers = Supplier::where('email', 'LIKE', "%$keyword%")
                             ->orWhere('telephone', 'LIKE', "%$keyword%")
+                            ->orWhere('nom', 'LIKE', "%$keyword%")
+                            ->orWhere('ice', 'LIKE', "%$keyword%")
                             ->orWhere('adresse', 'LIKE', "%$keyword%")
+                            ->orWhere('ville', 'LIKE', "%$keyword%")
                             ->orWhere('site_web', 'LIKE', "%$keyword%")
                             ->paginate($number)
                             ->appends(['keyword' => $keyword, 'number' => $number]);

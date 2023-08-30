@@ -31,7 +31,7 @@
             </li>
             </ol>
         </nav>
-        
+
         @if ($errors->any())
             <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -55,7 +55,7 @@
             <form action="{{route('supplier.store')}}" method="POST" >
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                    <div class="sm:col-span-2">
+                    <div class="w-full">
                         <label for="ice" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">ICE</label>
                         <input type="text" name="ice" id="ice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice')}}">
                     </div>
@@ -63,6 +63,11 @@
                     <div class="w-full">
                         <label for="nom" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">NOM</label>
                         <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('nom')}}">
+                    </div>
+
+                    <div class="w-full">
+                        <label for="ville" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">VILLE</label>
+                        <input type="text" name="ville" id="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice')}}">
                     </div>
                     <div>
                         <label for="email" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">Email</label>
