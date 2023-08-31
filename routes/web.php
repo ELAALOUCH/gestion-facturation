@@ -3,9 +3,11 @@
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
@@ -36,15 +38,25 @@ Route::middleware('auth')->group(function () {
     Route::resource('company',CompanyController::class);
     //les routes de fournisseur
     Route::resource('supplier',SupplierController::class);
-    //les routes de categorie
-    Route::resource('category',CategoryController::class)->except(['show']);
-
     Route::get('supplier.archive',[SupplierController::class ,'archive'])->name('supplier.archive');
-
-
     Route::get('supplier.search', [SupplierController::class,'search'])->name('supplier.search');
     Route::get('supplier.searchArchive', [SupplierController::class,'searchArchive'])->name('supplier.searchArchive');
     Route::patch('/supplier/{id}/restore',[SupplierController::class,'restore'])->name('supplier.restore');
+    //les routes de categorie
+    Route::resource('category',CategoryController::class)->except(['show']);
+    //les routes de product
+    Route::resource('product',ProductController::class)->except(['show']);
+    Route::get('product.search', [ProductController::class,'search'])->name('product.search');
+    Route::get('product.archive',[ProductController::class ,'archive'])->name('product.archive');
+    Route::patch('/product/{id}/restore',[ProductController::class,'restore'])->name('product.restore');
+
+
+    Route::get('product.searchArchive', [ProductController::class,'searchArchive'])->name('product.searchArchive');
+
+
+
+
+
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');
 
