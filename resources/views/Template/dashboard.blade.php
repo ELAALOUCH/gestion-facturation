@@ -150,7 +150,7 @@
                  </li>
             </ul>
          </li>
-         
+
          @endcan
          <li>
             <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-6" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example2">
@@ -165,7 +165,7 @@
             </button>
             <ul id="dropdown-example2" class="hidden py-2 space-y-2">
                   <li>
-                     <a href="{{route('category.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Catégorie</a>
+                     <a href="{{route('user.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Utlisateur</a>
                   </li>
                   <li>
                     <a href="{{route('roles.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Roles</a>
