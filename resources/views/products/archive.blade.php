@@ -2,17 +2,7 @@
 
 @section('content')
 
-    @if (session()->has('status'))
-        <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
-            <span class="sr-only">Info</span>
-            <div>
-            <span class="font-medium"> {{session()->get('status')}}
-            </div>
-        </div>
-    @endif
+
 
     <div class="border-b border-gray-200 dark:border-gray-700 pl-6">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -49,8 +39,20 @@
                     Archive
                 </a>
             </li>
-
     </div>
+
+    @if (session()->has('status'))
+    <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+        <span class="font-medium"> {{session()->get('status')}}
+        </div>
+    </div>
+    @endif
+
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -102,11 +104,11 @@
                                         @if ($product->photo)
                                         <img src="{{ (Storage::url($product->photo))}}" class="h-8 w-auto mr-3">
                                         @endif
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{{$product->designation}}</span>
+                                        <span class=" text-blue-800 text-sm font-roboto mr-2  dark:bg-blue-900 dark:text-blue-300">{{$product->designation}}</span>
                                     </div>
                                 </th>
                                 <td class="px-4 py-3">
-                                    <span class="bg-green-100 text-green-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">{{$product->category->categorie}}</span>
+                                    <span class=" bg-green-100 text-green-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">{{$product->category->categorie}}</span>
                                 </td>
                                 <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="flex items-center">

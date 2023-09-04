@@ -26,6 +26,11 @@ Route::get('/', function () {
     return view('template.dashboard');
 });
 
+Route::get('/log', function () {
+    return view('Login.login');
+});
+
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

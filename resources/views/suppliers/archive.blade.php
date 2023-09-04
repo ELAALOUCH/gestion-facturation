@@ -3,19 +3,6 @@
 @section('content')
 
 
-            {{--session message --}}
-        @if (session()->has('status'))
-        <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
-            <span class="sr-only">Info</span>
-            <div>
-            <span class="font-medium"> {{session()->get('status')}}
-            </div>
-        </div>
-       @endif
-
        <div class="border-b border-gray-200 dark:border-gray-700 pl-6">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="mr-2">
@@ -53,6 +40,19 @@
             </li>
 
     </div>
+
+         {{--session message --}}
+         @if (session()->has('status'))
+         <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+             <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+             </svg>
+             <span class="sr-only">Info</span>
+             <div>
+             <span class="font-medium"> {{session()->get('status')}}
+             </div>
+         </div>
+        @endif
 
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-4">
@@ -95,7 +95,6 @@
                                 <th scope="col" class="px-4 py-3 font-roboto">ville</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">email</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">telephone</th>
-                                <th scope="col" class="px-4 py-3 font-roboto">adresse</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">site_web</th>
                                 <th scope="col" class="px-4 py-3 font-roboto">
                                 <span class="sr-only">Actions</span>
@@ -113,7 +112,6 @@
 
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->email}}</td>
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->telephone}}</td>
-                                <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->adresse}}</td>
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->site_web}}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                         <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
