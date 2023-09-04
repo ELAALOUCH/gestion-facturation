@@ -129,6 +129,8 @@
                <span class="ml-3 font-roboto text-sm">Fournisseur</span>
             </a>
          </li>
+         @can('product')
+
          <li>
             <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-6" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -145,6 +147,28 @@
                   </li>
                   <li>
                     <a href="{{route('product.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">List des produits</a>
+                 </li>
+            </ul>
+         </li>
+         
+         @endcan
+         <li>
+            <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-6" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example2">
+                <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
+                    <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
+                    <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
+                  </svg>
+                  <span class="flex-1 ml-3 text-left whitespace-nowrap">Utilisateurs</span>
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                  </svg>
+            </button>
+            <ul id="dropdown-example2" class="hidden py-2 space-y-2">
+                  <li>
+                     <a href="{{route('category.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Catégorie</a>
+                  </li>
+                  <li>
+                    <a href="{{route('roles.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Roles</a>
                  </li>
             </ul>
          </li>

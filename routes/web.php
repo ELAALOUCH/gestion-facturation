@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Models\Product;
@@ -54,6 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::get('product.search', [ProductController::class,'search'])->name('product.search');
     Route::get('product.archive',[ProductController::class ,'archive'])->name('product.archive');
     Route::patch('/product/{id}/restore',[ProductController::class,'restore'])->name('product.restore');
+
+    //les roles
+    Route::resource('roles',RoleController::class);
+
+
 
 
     Route::get('product.searchArchive', [ProductController::class,'searchArchive'])->name('product.searchArchive');
