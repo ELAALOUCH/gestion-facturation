@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseInvoiceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
@@ -61,6 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles',RoleController::class);
     Route::resource('user',UserController::class);
     Route::get('user.search', [UserController::class,'search'])->name('user.search');
+
+    // les routes des achats
+    Route::resource('purchase', PurchaseInvoiceController::class);
 
 
 

@@ -10,5 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Supplier extends Model
 {
     use SoftDeletes;
-    
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function purchaseInvoices(): HasMany
+    {
+        return $this->hasMany(purchaseInvoices::class,'supplier_id');
+    }
+
 }

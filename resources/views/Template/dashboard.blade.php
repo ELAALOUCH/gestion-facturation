@@ -165,7 +165,7 @@
             </button>
             <ul id="dropdown-example2" class="hidden py-2 space-y-2">
                   <li>
-                     <a href="{{route('user.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Utlisateur</a>
+                     <a href="{{route('user.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Utlisateurs</a>
                   </li>
                   <li>
                     <a href="{{route('roles.index')}}" class="flex items-center w-full p-2 text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Roles</a>
