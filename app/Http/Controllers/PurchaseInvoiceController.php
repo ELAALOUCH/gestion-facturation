@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Service;
+use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseInvoiceController extends Controller
@@ -18,8 +22,11 @@ class PurchaseInvoiceController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('purchase-invoices.create');
+    {   $currentDate=Carbon::today()->toDateString();
+        $suppliers = Supplier::all();
+        $products = Product::all();
+        $services = Service::all();
+        return view('purchase-invoices.create',compact('suppliers','currentDate','products','services'));
     }
 
     /**

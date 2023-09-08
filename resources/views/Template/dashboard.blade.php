@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
-    @livewireStyles
+    
 </head>
 
 <body class="bg-gray-50">
@@ -184,10 +184,7 @@
         </div>
     </div>
 
-
-
-
- @livewireScripts
-
+    {{-- le code Js de la page  --}}
+    @yield('js')
 </body>
 </html>
