@@ -1,6 +1,8 @@
 @extends('Template.dashboard')
 
 @section('content')
+
+
 <form action="{{route('purchase.store')}}" method="POST" enctype="multipart/form-data" >
     @csrf
 
@@ -23,7 +25,7 @@
                     @error('date') <span >{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label for="date_echeance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">La Date d'échéance  </label>
+                    <label for="date_echeance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">La date d'échéance  </label>
                     <input  type="date" name="date_echeance" id="date_echeance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"   >
                     @error('date_echeance') <span >{{ $message }}</span> @enderror
                 </div>
@@ -87,7 +89,7 @@
                         </div>
                         <div>
                             <label :for="'prix-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Unitaire</label>
-                            <input x-bind:required="type === 'produit'" x-model="product.price" type="text" :name="'Products[' + index + '][price]'" :id="'prix-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            <input  x-bind:required="type === 'produit'" x-model="product.price" type="text" :name="'Products[' + index + '][price]'" :id="'prix-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                         </div>
                         <div>
                             <label :for="'quantite-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
@@ -103,7 +105,7 @@
                     </div>
                 </template>
 
-                <div x-show="orderProducts.length!=0">
+                <div  x-show=" type == 'produit' ">
                     <button @click="orderProducts.push({ product_id: '', price:'' ,quantity: 1 })" type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 21">
                             <path d="M15 14H7.78l-.5-2H16a1 1 0 0 0 .962-.726l.473-1.655A2.968 2.968 0 0 1 16 10a3 3 0 0 1-3-3 3 3 0 0 1-3-3 2.97 2.97 0 0 1 .184-1H4.77L4.175.745A1 1 0 0 0 3.208 0H1a1 1 0 0 0 0 2h1.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 10 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3Zm-8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm8 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
@@ -119,6 +121,11 @@
                     <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Le nom de service </label>
                     <input x-bind:required="type === 'service'" type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
                     @error('nom') <span >{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="prix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
+                    <input x-bind:required="type === 'service'" type="text" name="prix" id="prix" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
+                    @error('prix') <span >{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description </label>

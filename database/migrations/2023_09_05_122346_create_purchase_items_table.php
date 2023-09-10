@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('service_id')->nullable();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->unsignedInteger('quantite');
-            $table->decimal('prix_unitaire',10,2);
+            $table->unsignedInteger('quantite')->nullable();
+            $table->decimal('prix_unitaire',10,2)->nullable();
             $table->timestamps();
         });
     }

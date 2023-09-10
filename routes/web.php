@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
 
     // les routes des achats
     Route::resource('purchase', PurchaseInvoiceController::class);
-
+    Route::get('purchase/download/{id}', [PurchaseInvoiceController::class, 'download'])->name('purchase.download');
 
 
 
