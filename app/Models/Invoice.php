@@ -5,28 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Service extends Model
+class Invoice extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['nom','description','type','supplier_id','prix'];
-
-
-    public function supplier()
+    protected $fillable = ['customer_id','type','date','date_echeance','tva','total_ht','total_tva'];
+    public function customer(): HasOne
     {
-        return $this->belongsTo(Supplier::class);
-    }
-
-    public function purchaseItems()
-    {
-        return $this->hasMany(purchaseItems::class,'service_id');
+        return $this->hasOne(customer::class);
     }
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
-
-
-
 }
