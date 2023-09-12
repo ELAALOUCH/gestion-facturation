@@ -11,10 +11,7 @@ class customer extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function invoices(): HasMany
-    {
-        return $this->hasMany(Invoice::class);
-    }
+
 
 
     protected static function boot()
@@ -33,5 +30,10 @@ class customer extends Model
                 $customer->code_client = '0001';
             }
         });
+    }
+    
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
     }
 }

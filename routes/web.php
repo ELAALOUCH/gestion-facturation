@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseInvoiceController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
@@ -66,13 +68,9 @@ Route::middleware('auth')->group(function () {
     // les routes des achats
     Route::resource('purchase', PurchaseInvoiceController::class);
     Route::get('purchase/download/{id}', [PurchaseInvoiceController::class, 'download'])->name('purchase.download');
-
-
-
-
-
     Route::get('product.searchArchive', [ProductController::class,'searchArchive'])->name('product.searchArchive');
-
+    // les routes des factures
+    Route::resource('invoice',InvoiceController::class);
 
 
 

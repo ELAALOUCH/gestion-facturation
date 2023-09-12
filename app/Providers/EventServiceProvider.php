@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\PurchaseInvoice;
 use App\Models\PurchaseItem;
+use App\Observers\OrderObserver;
 use App\Observers\PurchaseInvoiceObserver;
 use App\Observers\PurchaseItemObserver;
 use Illuminate\Auth\Events\Registered;
@@ -31,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
     {
         PurchaseItem::observe(PurchaseItemObserver::class);
         PurchaseInvoice::observe(PurchaseInvoiceObserver::class);
+        Order::observe(OrderObserver::class);
     }
     /**
      * Determine if events and listeners should be automatically discovered.

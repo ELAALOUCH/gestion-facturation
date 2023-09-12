@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
     @vite(['resources/css/app.css','resources/js/app.js'])
-    
+    @yield('css')
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-white">
 <nav class=" top-0 z-50  bg-white  lg:ml-[255px] lg:w-[clac(100%)-[255px]] pr-8 py-2 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
             <div class="flex flex-wrap justify-between items-center">
                 <div class="flex justify-start items-center">
@@ -100,19 +101,12 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-950 pt-4 ">
         <ul class="space-y-2 font-medium">
             @if (Auth::check() && Auth::user()->company)
-            <li class="flex justify-center items-center">
+            <li class="flex justify-center items-center pt-10">
                 <img class="rounded-full w-24 h-24 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]" src="{{ Storage::url(Auth::user()->company->logo)}}" alt="image description " >
-            </li>
-            <li>
-                <h1 class="text-white text-center font-mono text-blue-800 font-bold">
-                Gestion
-                    <br class="text-center">
-                    Stock et Facturation
-                  </h1>
             </li>
             @endif
            <li>
-              <a href="#" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200  @if (Auth::check() && Auth::user()->company) pt-5 @else pt-[150px] @endif">
+              <a href="#" class="flex items-center pt-10 p-2 text-gray-200  border-b-[0.05px] border-graye-200  @if (Auth::check() && Auth::user()->company) pt-5 @else pt-[150px] @endif">
                  <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                     <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
                     <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
@@ -179,7 +173,7 @@
 
     {{-- Un contenu dynamique  --}}
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed  dark:border-gray-700 ">
+        <div class="p-4 border-2 bg-white  border-gray-200 border-dashed " id="print" >
             @yield('content')
         </div>
     </div>
