@@ -7,7 +7,8 @@
     <div class="border-b border-gray-200 dark:border-gray-700 pl-6">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li class="mr-2">
-                <a href="{{route('product.index')}}" class="@if ($tab =='index')
+
+                <a href="{{route('service.index')}}" class="@if ($tab =='index')
                 inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
                 @else
                 inline-flex font-roboto items-center justify-center p-4 f border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300  group
@@ -24,11 +25,11 @@
                 </a>
             </li>
             <li class="mr-2">
-                <a href="{{route('product.archive')}}" class="@if ($tab =='archive')
+                <a href="{{route('service.archive')}}" class="@if ($tab =='archive')
                 inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
                 @else
                 inline-flex font-roboto items-center justify-center p-4 f border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300  group
-                @endif ">
+                @endif" aria-current="page">
                     <svg class="@if ($tab=='archive')
                     w-4 h-4 mr-2 text-blue-600
                     @else
@@ -41,61 +42,52 @@
             </li>
     </div>
 
-
-    <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <section class="bg-white dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="p-4 uppercase font-roboto">Produit</th>
-                                <th scope="col" class="p-4 uppercase font-roboto">Categorie</th>
-                                <th scope="col" class="p-4 uppercase font-roboto">Stock</th>
-                                <th scope="col" class="p-4 uppercase font-roboto">Stock de Securite</th>
-                                <th scope="col" class="p-4 uppercase font-roboto">Action</th>
+                                <th scope="col" class="p-4 uppercase font-roboto">Service</th>
+                                <th scope="col" class="p-4 uppercase font-roboto">Type</th>
+                                <th scope="col" class="p-4 uppercase font-roboto">Description</th>
+                                <th scope="col" class="p-4 uppercase font-roboto"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($services as $service)
                             <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                <th scope="row" class="px-4 py-3 font-roboto text-gray-900 font-roboto whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center mr-3">
-                                        @if ($product->photo)
-                                        <img src="{{ (Storage::url($product->photo))}}" class="h-8 w-auto mr-3">
-                                        @endif
-                                        <span class=" text-blue-800 text-sm font-roboto mr-2  dark:bg-blue-900 dark:text-blue-300">{{$product->designation}}</span>
-                                    </div>
-                                </th>
                                 <td class="px-4 py-3">
-                                    <span class=" bg-green-100 text-green-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">{{$product->category->categorie}}</span>
+                                    <span class=" bg-green-100 text-green-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">{{$service->nom}}</span>
                                 </td>
+
                                 <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div class="flex items-center">
-                                        @if ($product->stock >= $product->stock_alert)
-                                            <div class="h-4 w-4 rounded-full inline-block mr-2 bg-green-700"></div>
-                                        @else
-                                            <div class="h-4 w-4 rounded-full inline-block mr-2 bg-red-700"></div>
-                                        @endif
-                                        {{$product->stock}}
+                                    <div class="flex items-center uppercase font-semibold ">
+                                        {{$service->type}}
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="flex items-center">
-                                        {{$product->stock_alert}}
+                                        {{ Str::limit($service->description, 60) }}
                                     </div>
                                 </td>
-                                <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
-                                        <form action="{{route('product.restore',['id'=>$product->id])}}" method="POST" >
+                                @if ($service->type = "interne")
+                                    <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
+                                        <form action="{{route('service.restore',['id'=>$service->id])}}" method="POST" >
                                             @method('PATCH')
                                             @csrf
                                             <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
                                                 <span class="relative px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                     Restaurer
                                                 </span>
-                                              </button>
+                                            </button>
                                         </form>
-                                </td>
+                                    </td>
+                                @endif
+
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -104,7 +96,7 @@
             </div>
 
             <div class="mt-4">
-                {{$products->links('pagination::tailwind')}}
+                {{$services->links('pagination::tailwind')}}
             </div>
         </div>
     </section>

@@ -42,7 +42,7 @@ class PurchaseInvoiceController extends Controller
      */
     public function create()
     {
-          $currentDate=Carbon::today()->toDateString();
+        $currentDate=Carbon::today()->toDateString();
         $suppliers = Supplier::all();
         $products = Product::all();
         $services = Service::all();

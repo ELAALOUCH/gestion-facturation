@@ -19,7 +19,7 @@
                 <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{route('product.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"> Les produits</a>
+                <a href="{{route('service.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"> Les services</a>
                 </div>
             </li>
             <li aria-current="page">
@@ -27,45 +27,29 @@
                 <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Ajouter un produit</span>
+                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Ajouter un service</span>
                 </div>
             </li>
             </ol>
         </nav>
 
             <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-                <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('service.store')}}" method="POST" >
                     @csrf
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div class="sm:col-span-2">
                             <label for="designation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white uppercase font-roboto">Designation</label>
                              <input type="text" name="designation" id="designation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('designation')}}">
                              @error('designation') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
-
                             </div>
-                        <div>
-                            <label for="categorie" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white uppercase font-roboto">Categorie</label>
-                            <select required id="categorie" name="categorie" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                @foreach ($categories as $categorie )
-                                    <option value="{{$categorie->id}}">{{$categorie->categorie}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div>
-                            <label for="stock_alert" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white uppercase font-roboto">Stock de Securite </label>
-                            <input min="0" type="number" name="stock_alert" id="stock_alert" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('Stock_alert')}}">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white uppercase font-roboto" for="photo">Image</label>
-                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" name="photo" id="photo" type="file"  value="{{old('photo')}}">
-                            @error('photo') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+                            <div>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description </label>
+                                <textarea required  type="description" name="description" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"   cols="100" rows="6"></textarea>
+                                @error('description') <span >{{ $message }}</span> @enderror
+                            </div>
 
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF</p>
-                        </div>
                     </div>
-
                     <button type="submit" class=" mt-5 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Ajouter</button>
-
                 </form>
             </div>
           </section>

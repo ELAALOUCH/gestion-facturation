@@ -1,13 +1,7 @@
 @extends('settings.show')
 @section('settingsContent')
 
-    @if (session()->has('status'))
-    <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-        <div>
-        <span class="font-medium"> {{session()->get('status')}}
-        </div>
-    </div>
-    @endif
+
 
 <div class="flex flex-col-reverse items-center justify-center lg:flex-row p-8">
   <form  class="mt-4 w-2/3" >

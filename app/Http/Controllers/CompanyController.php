@@ -40,18 +40,18 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'ice' => 'required|string|max:15',
+            'ice' => 'required|string',
             'nom' => 'required|string|max:255',
             'telephone' => 'required|size:10',
             'site_web' => 'nullable|string',
             'email' => 'required|email',
             'adresse' => 'required|string|max:255',
-            'logo' => 'required|image|mimes:jpeg,png,jpg',
-            'if' => 'required|string|max:10',
-            'cnss' => 'required|string|max:10',
-            'rib' => 'required|string|max:24',
-            'rc' => 'required|string|max:9',
-            'patente'=>'required|string|max:10',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'if' => 'required|string',
+            'cnss' => 'required|string',
+            'rib' => 'required|string',
+            'rc' => 'required|string',
+            'patente'=>'required|string',
         ]);
         $company = new Company();
         $company->ice = $request->input('ice');
@@ -109,18 +109,18 @@ class CompanyController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'ice' => 'required|string|max:15',
+            'ice' => 'required|string',
             'nom' => 'required|string|max:255',
             'telephone' => 'required|size:10',
             'site_web' => 'nullable|string',
             'email' => 'required|email',
             'adresse' => 'required|string|max:255',
-            'logo' => 'image|mimes:jpeg,png,jpg',
-            'if' => 'required|string|max:10',
-            'cnss' => 'required|string|max:10',
-            'rib' => 'required|string|max:24',
-            'rc' => 'required|string|max:9',
-            'patente'=>'required|string|max:10',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif',
+            'if' => 'required|string',
+            'cnss' => 'required|string',
+            'rib' => 'required|string',
+            'rc' => 'required|string',
+            'patente'=>'required|string',
         ]);
 
         $company = Company::find($id);
@@ -144,9 +144,9 @@ class CompanyController extends Controller
                         $company->logo = $path;
                         $company->save();
                     }
-                }
+        }
 
-         Session::flash('status', 'les informations sur la société ont été bien modifiées');
+         Session::flash('status', 'Les informations de la société ont été modifiées avec succès');
 
         }
         return redirect()->route('company.index');

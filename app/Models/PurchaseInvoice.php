@@ -54,7 +54,5 @@ class PurchaseInvoice extends Model
             $invoice->purchaseItems()->onlyTrashed()->restore();
         });
 
-
-
 }
 }

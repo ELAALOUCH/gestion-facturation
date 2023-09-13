@@ -16,7 +16,7 @@ class Invoice extends Model
     protected $fillable = ['numero','customer_id','type','date','date_echeance','tva','total_ht','total_tva','type_produit','etat_paiement','moyen_paiement','no_cheque','no_virement'];
     public function customer()
     {
-        return $this->belongsTo(customer::class);
+        return $this->belongsTo(Customer::class);
     }
     public function orders(): HasMany
     {

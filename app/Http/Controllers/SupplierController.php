@@ -44,15 +44,13 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'ice' => 'required|string|size:15',
-            'nom' => 'required|string|max:255',
+            'ice' => 'required|string',
+            'nom' => 'required|string',
             'telephone' => 'size:10',
             'site_web' => 'nullable|string',
             'email' => 'email',
             'adresse' => 'string|max:255',
             'ville'=>'required|string|max:255'
-
-
         ]);
         $supplier = new Supplier();
         $supplier->ice = $request->input('ice');
@@ -64,7 +62,7 @@ class SupplierController extends Controller
         $supplier->adresse = $request->input('adresse');
         $supplier->save();
         if ($supplier->save()) {
-            Session::flash('status', "Le fournissure a été ajouté ");
+            Session::flash('status', "Le fournisseur a été ajouté avec succès ");
         }
         return redirect()->route('supplier.index');
     }
@@ -93,14 +91,13 @@ class SupplierController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'ice' => 'required|string|max:255',
-            'nom' => 'required|string|max:255',
+            'ice' => 'required|string',
+            'nom' => 'required|string',
             'telephone' => 'size:10',
             'site_web' => 'nullable|string',
             'email' => 'email',
             'adresse' => 'string|max:255',
             'ville'=>'required|string|max:255'
-
         ]);
         $supplier = Supplier::find($id);
         $supplier->ice = $request->input('ice');
@@ -113,9 +110,10 @@ class SupplierController extends Controller
         $supplier->adresse = $request->input('adresse');
         $supplier->save();
         if ($supplier->save()) {
-            Session::flash('status', "Le fournissure a été modifié ");
+            Session::flash('status', "Le fournisseur a été modifié avec succès");
         }
-        return redirect()->route('supplier.index');    }
+        return redirect()->route('supplier.index');
+      }
 
     /**
      * Remove the specified resource from storage.

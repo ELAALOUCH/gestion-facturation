@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'designation' => 'required|string',
+            'designation' => 'required|min:2|string',
             'photo' => 'image|mimes:jpeg,png,jpg,gif',
 
         ]);
@@ -59,14 +59,14 @@ class ProductController extends Controller
         $product->designation= $request->input('designation');
         $product->category_id= $request->input('categorie');
         $product->company_id=Auth::user()->company->id;
-        $product->stock= $request->input('stock');
+        $product->stock= 0;
         $product->stock_alert= $request->input('stock_alert');
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('products_pictures');
             $product->photo = $path;
         }
         if($product->save()){
-            Session::flash('status', "Le produit a été ajouté");
+            Session::flash('status', "Le produit a été ajouté avec succès.");
         }
         return redirect()->route('product.index');
 
@@ -97,7 +97,7 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'designation' => 'required|string',
+            'designation' => 'required|min:2|string',
             'photo' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
         $product = Product::find($id);
@@ -111,7 +111,7 @@ class ProductController extends Controller
         }
 
         if($product->save()){
-            Session::flash('status', "Le produit a été modifié");
+            Session::flash('status', "Le produit a été modifié avec succès");
         }
         return redirect()->route('product.index');
 
@@ -125,7 +125,7 @@ class ProductController extends Controller
 
         if ((Product::where('id', $id)->delete()))
         {
-            Session::flash('status', "le produit a été supprimé");
+            Session::flash('status', "Le produit a été supprimé avec succès");
         }
         return redirect()->route('product.index');
 

@@ -2,18 +2,22 @@
 
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseInvoiceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\PurchaseInvoice;
+use App\Models\Service;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
@@ -42,11 +46,20 @@ Route::get('/log', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
+});
+
+Route::middleware(['auth','company.check'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     //les routes de l'entreprise
-    Route::resource('company',CompanyController::class);
+    Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+    Route::get('/company/{company}', [CompanyController::class, 'show'])->name('company.show');
+    Route::get('/company/{company}/edit', [CompanyController::class, 'edit'])->name('company.edit');
+    Route::put('/company/{company}', [CompanyController::class, 'update'])->name('company.update');
+    Route::delete('/company/{company}', [CompanyController::class, 'destroy'])->name('company.destroy');
     //les routes de fournisseur
     Route::resource('supplier',SupplierController::class);
     Route::get('supplier.archive',[SupplierController::class ,'archive'])->name('supplier.archive');
@@ -81,9 +94,18 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('invoice/{id}/restore',[InvoiceController::class,'restore'])->name('invoice.restore');
     Route::get('invoice.search', [InvoiceController::class,'search'])->name('invoice.search');
+    // les routes des services
+    Route::resource('service',ServiceController::class)->except(['show']);
+    Route::get('service.archive',[ServiceController::class ,'archive'])->name('service.archive');
+    Route::get('service.search', [ServiceController::class,'search'])->name('service.search');
+    Route::patch('service/{id}/restore',[ServiceController::class,'restore'])->name('service.restore');
+    Route::delete('service/{id}/forcedelelete',[ServiceController::class,'forcedelete'])->name('service.forcedelete');
 
-
-
+    // les routes des clients
+    Route::resource('customer',CustomerController::class)->except(['show']);
+    Route::get('customer.archive',[CustomerController::class ,'archive'])->name('customer.archive');
+    Route::get('customer.search', [CustomerController::class,'search'])->name('customer.search');
+    Route::patch('customer/{id}/restore',[CustomerController::class,'restore'])->name('customer.restore');
 
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');

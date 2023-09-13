@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class customer extends Model
+class Customer extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-
-
-
-
+    use SoftDeletes;
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($customer) {
 
-            $lastCustomer = self::orderByDesc('code_client')->first();
+            $lastCustomer = Customer::withTrashed()->orderByDesc('code_client')->first();
 
             if ($lastCustomer) {
                 $lastCode = (int) $lastCustomer->code_client;
@@ -31,7 +28,7 @@ class customer extends Model
             }
         });
     }
-    
+
     public function invoices(): HasMany
     {
         return $this->hasMany(Invoice::class);

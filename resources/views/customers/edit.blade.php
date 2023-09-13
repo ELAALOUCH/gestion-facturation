@@ -18,7 +18,7 @@
                 <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{route('supplier.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"> Les fournisseurs</a>
+                <a href="{{route('customer.index')}}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"> Les clients </a>
                 </div>
             </li>
             <li aria-current="page">
@@ -26,46 +26,46 @@
                 <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Editer le fournisseur</span>
+                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Editer le client</span>
                 </div>
             </li>
             </ol>
         </nav>
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-10">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un fournisseur</h2>
-            <form action="{{route('supplier.update',['supplier' =>$supplier->id])}}" method="POST"  >
+            <form action="{{route('customer.update',['customer' =>$customer->id])}}" method="POST"  >
                 @method('PUT')
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="w-fulle">
                         <label for="ice" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">ICE</label>
-                        <input type="text" name="ice" id="ice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$supplier->ice)}}">
+                        <input type="text" name="ice" id="ice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$customer->ice)}}">
                     </div>
 
                     <div class="w-full">
                         <label for="nom" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">NOM</label>
-                        <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('nom',$supplier->nom)}}">
+                        <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('nom',$customer->nom)}}">
                     </div>
                     <div class="w-full">
                         <label for="ville" class="font-mono block mb-2 text-sm font-medium text-gray-900 ">VILLE</label>
-                        <input type="text" name="ville" id="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$supplier->ville)}}">
+                        <input type="text" name="ville" id="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="" value="{{old('ice',$customer->ville)}}">
                     </div>
                     <div>
                         <label for="email" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"   value="{{old('email',$supplier->email)}}">
+                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"   value="{{old('email',$customer->email)}}">
                     </div>
                     <div>
                         <label for="telephone" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">TELEPHONE</label>
-                        <input type="text" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  value="{{old('telephone',$supplier->telephone)}}">
+                        <input type="text" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  value="{{old('telephone',$customer->telephone)}}">
                         @error('telephone') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <label for="site_web" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">SITE_WEB</label>
-                        <input type="text" name="site_web" id="site_web" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  value="{{old('site_web',$supplier->site_web)}}">
+                        <input type="text" name="site_web" id="site_web" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  value="{{old('site_web',$customer->site_web)}}">
                     </div>
                     <div class="sm:col-span-2">
                         <label for="adresse" class="font-mono block mb-2 text-sm font-medium text-gray-900 dark:text-white">ADRESSE</label>
-                        <textarea  name="adresse" id="adresse" val rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{old('adresse',$supplier->adresse)}}</textarea>
+                        <textarea  name="adresse" id="adresse" val rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{old('adresse',$customer->adresse)}}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="mt-4 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Modifier</button>

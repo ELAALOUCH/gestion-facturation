@@ -27,4 +27,13 @@ class PurchaseItem extends Model
     {
         return $this->belongsTo(Service::class,'service_id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            dd(5);
+        });
+    }
 }

@@ -31,14 +31,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'categorie' => 'required|string|min:2|max:255',
+            'categorie' => 'required|unique:categories|min:2|max:255',
         ]);
 
         $category = new Category();
         $category->categorie = $request->categorie;
         if ($category->save())
         {
-            Session::flash('status', "la catégorie a été ajoutée");
+            Session::flash('status', "La catégorie a été ajoutée avec succès.");
 
         }
         return redirect()->route('category.index');
@@ -70,13 +70,13 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'categorie' => 'required|string|min:2|max:255',
+            'categorie' => 'required|unique:categories|min:2|max:255',
         ]);
         $category = Category::find($id);
         $category->categorie = $request->categorie;
         if ($category->save())
         {
-            Session::flash('status', "la catégorie a été modifiée");
+            Session::flash('status', "La catégorie a été modifiée avec succès.");
 
         }
         return redirect()->route('category.index');
@@ -93,7 +93,7 @@ class CategoryController extends Controller
 
         if ((Category::where('id', $id)->delete()))
         {
-            Session::flash('status', "la catégorie a été supprimée");
+            Session::flash('status', "La catégorie a été supprimée avec succès");
         }
         return redirect()->route('category.index');
 

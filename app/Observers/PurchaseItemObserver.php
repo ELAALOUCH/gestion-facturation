@@ -32,9 +32,8 @@ class PurchaseItemObserver
     /**
      * Handle the PurchaseItem "deleted" event.
      */
-    public function deleted(PurchaseItem $purchaseItem): void
+    public function deleting(PurchaseItem $purchaseItem): void
     {
-        //
     }
 
     /**
