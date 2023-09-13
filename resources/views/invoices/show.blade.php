@@ -44,6 +44,62 @@
                 </div>
             </div>
 
+            @if ($invoice->type_produit =="service")
+            <div class=" mt-2 px-10 py-8 bg-white">
+                <div class="relative overflow-x-auto shadow-md ">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-blue-600 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-1">
+                                    Désignation
+                                </th>
+                                <th scope="col" class="px-6 py-1">
+                                    Quantité
+                                </th>
+                                <th scope="col" class="px-6 py-1">
+                                    @if ($invoice->type == "ttc")
+                                    Prix unitaire TTC
+                                    @else
+                                    Prix unitaire HT
+                                    @endif
+                                </th>
+                                <th scope="col" class="px-6 py-1">
+                                    @if ($invoice->type == "ttc")
+                                    Total TTC
+                                    @else
+                                    Total HT
+                                    @endif
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($invoice->orders as $order)
+                            <tr class="bg-white border-b">
+                                <th scope="row" class="px-6 py-2 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{$order->service->nom}}
+                                </th>
+                                <td class="px-6 py-2">
+                                    {{$order->quantite}}
+                                </td>
+                                <td class="px-6 py-2">
+                                    @if ($invoice->type == "ttc")
+                                    {{ number_format($order->prix+ $order->prix* ($invoice->tva/100) ,2)}} MAD
+
+                                    @else
+                                    {{ number_format($order->prix,2)}} MAD
+                                    @endif
+                                </td>
+                                <td class="px-6 py-2">
+                                    {{number_format($order->quantite * ($order->prix+ $order->prix* ($invoice->tva/100) ),2)}} MAD
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @else
+
             <div class=" mt-2 px-10 py-8 bg-white">
                 <div class="relative overflow-x-auto shadow-md ">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -97,10 +153,11 @@
                     </table>
                 </div>
             </div>
+            @endif
             <div class="mt-5 px-10 flex flex-row items-center bg-white">
                 <div class="w-2/3 ">
                     <p class="font-mono">Arrêtée la présente facture à la somme de : </p>
-                    <p class="font-mono uppercase py-4 font-bold">{{$integerWords}} et {{$decimalWords}} centimes   </p>
+                    <p class="font-mono uppercase py-4 font-bold">{{$integerWords}} et {{$decimalWords}} centimes  MAD  </p>
                 </div>
                 <div class="w-1/3 bg-white">
                     <table class="flex justify-center items-center right-0 text-sm text-left text-gray-500 dark:text-gray-400">

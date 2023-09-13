@@ -27,6 +27,34 @@ class PurchaseInvoice extends Model
         return $this->hasMany(PurchaseItem::class,'invoice_id');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($invoice) {
+            $invoice->purchaseItems()->delete();
+        });
 
 
+        static::forceDeleting(function ($invoice) {
+            $orders = $invoice->purchaseItems;
+
+            foreach ($orders as $order) {
+                if (!is_null($order->product_id)) {
+                    $product = $order->product;
+                    $product->stock -= $order->quantite;
+                    $product->save();
+                }
+            }
+
+            $invoice->purchaseItems()->forceDelete();
+        });
+
+        static::restored(function ($invoice) {
+            $invoice->purchaseItems()->onlyTrashed()->restore();
+        });
+
+
+
+}
 }

@@ -33,12 +33,12 @@
                 <div>
                     <label for="etat_paiement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat de paiement</label>
                     <select  x-model="etat" id="etat_paiement" name="etat_paiement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option   value="0">En attente</option>
-                    <option   value="1">Payé</option>
+                    <option   value="en attente">En attente</option>
+                    <option   value="payé">Payé</option>
                     </select>
                     @error('etat_paiement') <span>{{ $message }}</span> @enderror
                 </div>
-                <div x-show="etat == '1'">
+                <div x-show="etat == 'payé'">
                     <label for="moyen_paiement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Moyen de paiement</label>
                     <select  x-model='moyen' id="moyen_paiement" name="moyen_paiement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Sélectionnez un moyen de paiement</option>
@@ -48,13 +48,13 @@
                     </select>
                     @error('moyen_paiement') <span class="text-red-300">{{ $message }}</span> @enderror
                 </div>
-                <div x-show="etat == '1' && moyen=='chèque'">
+                <div x-show="etat == 'payé' && moyen=='chèque'">
                     <label for="n_cheque" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numéro de chèque</label>
                     <input value="{{old('date',$invoice->no_cheque)}}" type="text" name="n_cheque" id="n_cheque" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  >
                     @error('n_cheque') <span class="text-red-300">{{ $message }}</span> @enderror
 
                 </div>
-                <div x-show="etat == '1' && moyen=='virement'">
+                <div x-show="etat == 'payé' && moyen=='virement'">
                     <label for="n_virement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numéro de virement</label>
                     <input value="{{old('date',$invoice->no_virement)}}" type="text" name="n_virement" id="n_virement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                     @error('n_virement') <span class="text-red-300">{{ $message }}</span> @enderror

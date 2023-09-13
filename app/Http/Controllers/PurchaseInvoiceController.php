@@ -23,8 +23,18 @@ class PurchaseInvoiceController extends Controller
     public function index()
     {
         $invoices = PurchaseInvoice::paginate(5);
+        $tab='index';
 
-        return view('purchase-invoices.index',compact('invoices'));
+
+        return view('purchase-invoices.index',compact('invoices','tab'));
+    }
+
+    public function archive()
+    {
+
+        $invoices= PurchaseInvoice::onlyTrashed()->paginate(5);
+        $tab = 'archive';
+        return view('purchase-invoices.archive',compact('invoices','tab'));
     }
 
     /**
@@ -47,7 +57,6 @@ class PurchaseInvoiceController extends Controller
         $validated = $request->validate([
             'fournisseur' => 'required',
             'date' => 'required|date',
-            'date_echeance' => 'required|date',
             'etat_paiement' => 'required',
             'type' => 'required',
             'moyen_paiement' =>'required_if:etat_paiement,1',
@@ -121,8 +130,8 @@ class PurchaseInvoiceController extends Controller
         $invoice->supplier_id=$request->input('fournisseur');
         $invoice->date=$request->input('date');
         $invoice->date_echeance=$request->input('date_echeance');
-        if($request->input('etat_paiement') == 1 ){
-            $invoice->etat_paiement=1;
+        if($request->input('etat_paiement') == 'payé' ){
+            $invoice->etat_paiement='payé';
             if($request->input('moyen_paiement')=='chèque'){
                 $invoice->moyen_paiement='chèque';
                 if($request->input('n_cheque')){
@@ -143,7 +152,7 @@ class PurchaseInvoiceController extends Controller
                 $invoice->moyen_paiement='espèce';
             }
       }else{
-        $invoice->etat_paiement=0;
+        $invoice->etat_paiement='en attente';
         $invoice->moyen_paiement=null;
         $invoice->no_cheque=null;
         $invoice->no_virement=null;
@@ -174,9 +183,50 @@ class PurchaseInvoiceController extends Controller
         }
         return redirect()->route('purchase.index');
     }
+
+    public function forcedelete(string $id)
+    {
+        if(PurchaseInvoice::find($id)->forcedelete()){
+            return redirect()->route('purchase.index');
+        }
+    }
+
     public function download(string $id)
     {
         $invoice = PurchaseInvoice::find($id);
         return Storage::download($invoice->document);
     }
+
+    public function restore($id)
+    {
+        $invoice = PurchaseInvoice::onlyTrashed()->find($id);
+
+        if ($invoice) {
+            $invoice->restore();
+        }
+
+        return redirect()->back();
+    }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $number = $request->input('number');
+        $tab='index';
+        $invoices = PurchaseInvoice::where('date', 'LIKE', "%$keyword%")
+        ->orWhere('date_echeance', 'LIKE', "%$keyword%")
+        ->orWhere('type', 'LIKE', "%$keyword%")
+        ->orWhere('date', 'LIKE', "%$keyword%")
+        ->orWhere('date_echeance', 'LIKE', "%$keyword%")
+        ->orWhere('etat_paiement', 'LIKE', "%$keyword%")
+
+
+        ->orWhereHas('supplier', function ($query) use ($keyword) {
+            $query->where('nom', 'LIKE', "%$keyword%");
+        })
+        ->paginate($number)
+        ->appends(['keyword' => $keyword, 'number' => $number]);
+
+    return view('purchase-invoices.index', compact('invoices','tab'));
+    }
+
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\PurchaseInvoice;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
@@ -68,9 +69,18 @@ Route::middleware('auth')->group(function () {
     // les routes des achats
     Route::resource('purchase', PurchaseInvoiceController::class);
     Route::get('purchase/download/{id}', [PurchaseInvoiceController::class, 'download'])->name('purchase.download');
-    Route::get('product.searchArchive', [ProductController::class,'searchArchive'])->name('product.searchArchive');
+    Route::delete('purchase/{id}/forcedelelete',[PurchaseInvoiceController::class,'forcedelete'])->name('purchase.forcedelete');
+    Route::patch('purchase/{id}/restore',[PurchaseInvoiceController::class,'restore'])->name('purchase.restore');
+    Route::get('purchase.archive',[PurchaseInvoiceController::class ,'archive'])->name('purchase.archive');
+    Route::get('purchase.search', [PurchaseInvoiceController::class,'search'])->name('purchase.search');
+
     // les routes des factures
     Route::resource('invoice',InvoiceController::class);
+    Route::delete('invoice/{id}/forcedelelete',[InvoiceController::class,'forcedelete'])->name('invoice.forcedelete');
+    Route::get('invoice.archive',[InvoiceController::class ,'archive'])->name('invoice.archive');
+
+    Route::patch('invoice/{id}/restore',[InvoiceController::class,'restore'])->name('invoice.restore');
+    Route::get('invoice.search', [InvoiceController::class,'search'])->name('invoice.search');
 
 
 

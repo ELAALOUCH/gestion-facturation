@@ -4,7 +4,7 @@
 <form action="{{route('invoice.store')}}" method="POST"  >
     @csrf
 
-    <div class="flex flex-col" x-data="{ selectedType: 'tva' , type_produit:'produit',orderProducts: [{ product_id: '', price:'' ,quantity: 1 },],orderServices: [{ service_id: '', price:''  },]}">
+    <div class="flex flex-col" x-data="{ etat: 'en attente',moyen:'',selectedType: 'tva' , type_produit:'produit',orderProducts: [{ product_id: '', price:'' ,quantity: 1 },],orderServices: [{ service_id: '', price:'',quantity: 1 },]}">
             <div class="grid gap-6 mb-6 md:grid-cols-3">
                 <div>
                     <label for="numero" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de facture </label>
@@ -52,6 +52,35 @@
                     <input :value="selectedType === 'exonéré' ? 0 : 20" value="{{old('tva',20)}}" min="0" max="100"  type="number" name="tva" id="tva" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required>
                     @error('tva') <span >{{ $message }}</span> @enderror
                 </div>
+                <div>
+                    <label for="etat_paiement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat de paiement</label>
+                    <select  x-model="etat" id="etat_paiement" name="etat_paiement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="en attente">En attente</option>
+                    <option value="payé">Payé</option>
+                    </select>
+                    @error('etat_paiement') <span>{{ $message }}</span> @enderror
+                </div>
+                <div x-show="etat == 'payé'">
+                    <label for="moyen_paiement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Moyen de paiement</label>
+                    <select  x-model='moyen' id="moyen_paiement" name="moyen_paiement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">Sélectionnez un moyen de paiement</option>
+                        <option value="espèce">espèce</option>
+                        <option value="chèque">chèque</option>
+                        <option value="virement">virement</option>
+                    </select>
+                    @error('moyen_paiement') <span class="text-red-300">{{ $message }}</span> @enderror
+                </div>
+                <div x-show="etat == 'payé' && moyen=='chèque'">
+                    <label for="n_cheque" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numéro de chèque</label>
+                    <input type="text" name="n_cheque" id="n_cheque" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  >
+                    @error('n_cheque') <span class="text-red-300">{{ $message }}</span> @enderror
+
+                </div>
+                <div x-show="etat == 'payé' && moyen=='virement'">
+                    <label for="n_virement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numéro de virement</label>
+                    <input type="text" name="n_virement" id="n_virement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                    @error('n_virement') <span class="text-red-300">{{ $message }}</span> @enderror
+                </div>
             </div>
 
             <div x-show=" type_produit == 'produit' ">
@@ -72,7 +101,7 @@
                         </div>
                         <div>
                             <label :for="'quantite-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
-                            <input x-bind:required="type_produit === 'produit'" x-model="product.quantity" type="number" min="1" :name="'Products[' + index + '][quantity]'" :id="'quantite-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            <input x-bind:required="type_produit === 'produit'" x-model="product.quantity" type="number" min="1"  :name="'Products[' + index + '][quantity]'" :id="'quantite-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                         </div>
                         <div class="mt-6">
                             <button type="button" @click="orderProducts.splice(index, 1)" class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
@@ -102,7 +131,7 @@
                         <div>
                             <label :for="'product-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Service</label>
                             <select x-bind:required="type_produit === 'service'" x-model="product.product_id" required :id="'product-' + index" :name="'Services[' + index + '][service_id]'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">Sélectionnez un produit</option>
+                                <option value="">Sélectionnez un service</option>
                                 @foreach ($services as $service)
                                 <option value="{{$service->id}}">{{$service->nom}}({{$service->type}})</option>
                                 @endforeach
@@ -111,6 +140,10 @@
                         <div>
                             <label :for="'prix-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix </label>
                             <input  x-bind:required="type_produit === 'service'" x-model="product.price" type="text" :name="'Services[' + index + '][price]'" :id="'prix-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                        </div>
+                        <div>
+                            <label :for="'prix-' + index" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité </label>
+                            <input  x-bind:required="type_produit === 'service'" x-model="product.quantity" type="number" :name="'Services[' + index + '][quantity]'" :id="'prix-' + index" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                         </div>
                         <div class="mt-6">
                             <button type="button" @click="orderServices.splice(index, 1)" class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
