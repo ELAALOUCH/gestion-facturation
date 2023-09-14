@@ -33,7 +33,6 @@
             </ol>
         </nav>
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-            <h2 class="mb-4 text-xl font-roboto text-gray-900 dark:text-white">Ajouter un utilisateur</h2>
             <form action="{{route('user.update',['user'=>$user->id])}}" method="POST" >
                 @csrf
                 @method('PATCH')

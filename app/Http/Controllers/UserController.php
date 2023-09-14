@@ -115,21 +115,6 @@ class UserController extends Controller
         return redirect()->route('user.index');
 
     }
-    public function search(Request $request)
-        {
-            $keyword = $request->input('keyword');
-            $number = $request->input('number');
-
-            $users = User::where(function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%$keyword%")
-                      ->orWhere('email', 'LIKE', "%$keyword%")
-                      ->orWhereHas('roles', function ($query) use ($keyword) {
-                          $query->where('name', 'LIKE', "%$keyword%");
-                      });
-            })->paginate($number)->appends(['keyword' => $keyword, 'number' => $number]);
-
-            return view('users.index', compact('users'));
-        }
 
 
 }
