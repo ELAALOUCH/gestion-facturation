@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -17,10 +18,12 @@ class DashboardController extends Controller
     {
         $customersWithTotalTVA = Customer::select('customers.nom', DB::raw('SUM(invoices.total_tva) as total_tva_sum'))
         ->leftJoin('invoices', 'customers.id', '=', 'invoices.customer_id')
+        ->whereNull('invoices.deleted_at') 
         ->groupBy('customers.nom')
         ->orderByDesc('total_tva_sum')
         ->limit(5)
         ->get();
+
 
         $chart_options = [
             'chart_title' => 'Factures par état de paiement',
@@ -45,14 +48,9 @@ class DashboardController extends Controller
         $chart2 = new LaravelChart($chart_options2);
 
 
-            $topProducts = DB::table('orders')
-            ->select('product_id', 'service_id', DB::raw('SUM(quantite) as total_quantite'))
-            ->groupBy('product_id', 'service_id')
-            ->orderByDesc('total_quantite')
-            ->limit(5)
-            ->get();
 
-            $topProducts = DB::table('orders')
+
+            $topProducts = Order::withoutTrashed()
             ->select('product_id', DB::raw('SUM(quantite) as total_quantite'))
             ->whereNotNull('product_id')
             ->groupBy('product_id')
@@ -65,7 +63,7 @@ class DashboardController extends Controller
         $topProductDetails = Product::whereIn('id', $topProductIds)->get();
 
 
-        $topServices = DB::table('orders')
+        $topServices =Order::withoutTrashed()
         ->select('service_id', DB::raw('SUM(quantite) as total_quantite'))
         ->whereNotNull('service_id') // Assurez-vous de sélectionner uniquement les services, pas les produits
         ->groupBy('service_id')
