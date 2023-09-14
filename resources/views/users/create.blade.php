@@ -33,23 +33,6 @@
             </li>
             </ol>
         </nav>
-        @if ($errors->any())
-            <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                </svg>
-                <span class="sr-only">Danger</span>
-                <div>
-                    <span class="font-roboto">Assurez-vous que ces exigences sont remplies :</span>
-                    <ul class="mt-1.5 ml-4 list-disc list-inside">
-                    @foreach ($errors->all() as $error )
-                    <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-
-                </div>
-            </div>
-        @endif
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h2 class="mb-4 text-xl font-roboto text-gray-900 dark:text-white">Ajouter un utilisateur</h2>
             <form action="{{route('user.store')}}" method="POST" >
@@ -57,11 +40,15 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="w-full">
                         <label for="nom" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Nom</label>
-                        <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required value="{{old('nom')}}">
+                        <input type="text" name="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required value="{{old('nom')}}">                        @error('telephone') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+                        @error('nom') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"   value="{{old('email')}}">
+                        @error('email') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+
                     </div>
                     <div >
                         <label for="role" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Role</label>
@@ -71,16 +58,12 @@
                             @endforeach
                         </select>
                     </div>
-                    <div >
-                        <label for="status" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Status</label>
-                        <select required id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                    </div>
+
                     <div>
                         <label for="password" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Mot de passe</label>
                         <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required  value="{{old('password')}}">
+                        @error('password') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+
                     </div>
                     <div>
                         <label for="confirm" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Confirmer le mot de passe</label>

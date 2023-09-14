@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin@1234'),
-            'status' => 'active',
         ]);
 
         $ownerRole = Role::where('name', 'owner')->first();

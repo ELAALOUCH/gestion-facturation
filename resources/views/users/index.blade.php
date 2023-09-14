@@ -1,19 +1,6 @@
 @extends('Template.dashboard')
 
 @section('content')
-    {{--session message --}}
-    @if (session()->has('status'))
-        <div class="flex items-center p-4 my-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
-            <span class="sr-only">Info</span>
-            <div>
-            <span class="font-roboto"> {{session()->get('status')}}
-            </div>
-        </div>
-    @endif
-
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-4">
             <!-- Start coding here -->
@@ -42,9 +29,11 @@
                         </form>
                     </div>
                     <div>
-                            <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
-                                <a href="{{route('user.create')}}">Ajouter</a>
-                            </button>
+                        @can('creer')
+                        <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
+                            <a href="{{route('user.create')}}">Ajouter</a>
+                        </button>
+                        @endcan
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -55,7 +44,6 @@
                                 <th scope="col" class="px-4 py-3">nom</th>
                                 <th scope="col" class="px-4 py-3">email</th>
                                 <th scope="col" class="px-4 py-3">role</th>
-                                <th scope="col" class="px-4 py-3">status</th>
                                 <th scope="col" class="px-4 py-3">
                                 <span class="sr-only">Actions</span>
                                 </th>
@@ -72,22 +60,10 @@
 
                                 <span class="bg-blue-100 text-blue-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{{ $user->getRoleNames()->first()}}</span>
                             </td>
-                            <td scope="row" class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
-                                @if ($user->status == 'active')
-                                    <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                        <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
-                                        Active
-                                    </span>
-                                @else
-                                <span class="inline-flex items-center bg-red-100 text-red-800 text-xs font-roboto mr-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
-                                    <span class="w-2 h-2 mr-1 bg-red-500 rounded-full"></span>
-                                    Inactive
-                                </span>
-                                @endif
-                            </td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                     <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
                                         <li>
+                                            @can('editer')
                                             <form action="{{route('user.edit',['user' =>$user->id])}}" method="GET">
                                                 @csrf
                                                 <button type="submit" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal" class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
@@ -97,8 +73,10 @@
                                                     </svg>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </li>
                                         <li>
+                                            @can('supprimer')
                                             <form action="{{route('user.destroy',['user' => $user->id])}}" method="POST" >
                                                 @method('DELETE')
                                                 @csrf
@@ -108,6 +86,7 @@
                                                     </svg>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </li>
                                     </ul>
                             </td>

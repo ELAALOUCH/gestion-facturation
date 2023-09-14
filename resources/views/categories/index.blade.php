@@ -7,9 +7,11 @@
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="w-full md:w-auto flex flex-col md:flex-row  space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        @can('creer')
                         <button type="button" id="createProductModalButton" data-modal-target="createProductModal" data-modal-toggle="createProductModal" class=" pr-15 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">
                             <a href="{{route('category.create')}} " >Ajouter </a>
                         </button>
+                        @endcan
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -36,15 +38,18 @@
                                             <li>
                                                 <form action="{{route('category.edit',['category' =>$categorie->id])}}" method="GET">
                                                     @csrf
+                                                    @can('editer')
                                                     <button type="submit" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal" class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                         <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                             <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
                                                         </svg>
                                                     </button>
+                                                    @endcan
                                                 </form>
                                             </li>
                                             <li>
+                                                @can('supprimer')
                                                 <form action="{{route('category.destroy',['category' => $categorie->id])}}" method="POST" >
                                                     @method('DELETE')
                                                     @csrf
@@ -54,6 +59,7 @@
                                                         </svg>
                                                     </button>
                                                 </form>
+                                                @endcan
                                             </li>
                                         </ul>
                                 </td>

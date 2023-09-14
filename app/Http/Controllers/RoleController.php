@@ -15,8 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(5);
-        return view('roles.index',compact('roles'));
+        $roles = Role::where('name', '!=', 'owner')->paginate(5);
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -34,7 +34,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:roles'],
-            'permissions' => ['array'], // Assurez-vous que 'permissions' est un tableau
+            'permissions' => ['array'],
 
         ]);
 
@@ -50,6 +50,8 @@ class RoleController extends Controller
 
             $role = Role::create(['name' => $request->input('name')]);
             $role->givePermissionTo($request->input('roles'));
+            return redirect()->route('roles.index')->with('status', 'Rôle créé avec succès');
+
         }
     }
 
@@ -68,6 +70,7 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
+
         $role = Role::findOrFail($id);
         return view('roles.edit',compact('role'));
     }

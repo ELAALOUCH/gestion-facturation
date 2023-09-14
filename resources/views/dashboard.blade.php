@@ -3,6 +3,7 @@
 @section('content')
 <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6 flex flex-col  ">
     <div id="24h">
+
         <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-blue-900 to-white/5 p-6 rounded-lg">
                 <div class="flex flex-row space-x-4 items-center">
@@ -82,7 +83,107 @@
             <h2 class="font-roboto pb- font-semibold text-blue-950 text-center py-8 italic ">{{ $chart2->options['chart_title'] }}</h2>
                     {!! $chart2->renderHtml() !!}
         </div>
+    </div>
+    <div class="flex flex-row mt-16 gap-x-4">
+        <div class=" w-1/2 ">
+            <h2 class="font-roboto pb- font-semibold text-blue-950 text-center py-2 italic">Top clients par chiffre d'affaire</h2>
 
+            <div class="relative overflow-x-auto">
+                <table class="w-full px-2 text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-white uppercase bg-blue-900 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Client
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Chiffre d'affaire
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($customersWithTotalTVA as $customer)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$customer->nom}}
+                            </th>
+                            <td class="px-6 py-4">
+                               {{ $customer->total_tva_sum}} MAD
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class=" w-1/2 ">
+            <h2 class="font-roboto pb- font-semibold text-blue-950 text-center py-2 italic">Top  produits vendus</h2>
+
+            <div class="relative overflow-x-auto">
+                <table class="w-full px-2 text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-white uppercase bg-blue-900 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Produit
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Quantité
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topProducts as $product)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$productDetails = $topProductDetails->where('id', $product->product_id)->first()->designation}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $product->total_quantite }}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="flex items-center justify-center">
+        <div class=" w-1/2 mt-16  ">
+            <h2 class="font-roboto pb- font-semibold text-blue-950 text-center py-2 italic">Top services vendus</h2>
+
+            <div class="relative overflow-x-auto">
+                <table class="w-full px-2 text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-white uppercase bg-blue-900 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Service
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Quantité
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topServices  as $service)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$serviceDetails  = $topServiceDetails->where('id', $service->service_id)->first()->nom}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $service->total_quantite }}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 
 </div>

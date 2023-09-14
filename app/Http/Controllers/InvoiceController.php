@@ -97,8 +97,9 @@ class InvoiceController extends Controller
                 }
             }
             Session::flash('status', "La facture a été ajoutée avec succès");
-
         }
+        return redirect()->route('invoice.index');
+
 
     }
 

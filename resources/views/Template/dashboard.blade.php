@@ -91,15 +91,18 @@
                 <img class="rounded-full w-24 h-24 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]" src="{{ Storage::url(Auth::user()->company->logo)}}" alt="image description " >
             </li>
             @endif
-           <li>
-              <a href="/dashboard" class="flex items-center pt-10 p-2 text-gray-200  border-b-[0.05px] border-graye-200  @if (Auth::check() && Auth::user()->company) pt-5 @else pt-[150px] @endif">
-                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                    <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                    <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                 </svg>
-                 <span class="ml-3 font-roboto text-sm">Dashboard</span>
-              </a>
-           </li>
+            @can('dashboard')
+            <li>
+               <a href="/dashboard" class="flex items-center pt-10 p-2 text-gray-200  border-b-[0.05px] border-graye-200  @if (Auth::check() && Auth::user()->company) pt-5 @else pt-[150px] @endif">
+                  <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                     <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                     <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
+                  </svg>
+                  <span class="ml-3 font-roboto text-sm">Dashboard</span>
+               </a>
+            </li>
+            @endcan
+        @can('fournisseur')
         <li>
             <a href="{{route('supplier.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-6 ">
                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
@@ -109,41 +112,56 @@
                <span class="ml-3 font-roboto text-sm">Fournisseur</span>
             </a>
          </li>
+        @endcan
 
-         <li>
-            <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-3" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                    <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+        @canany(['produit', 'service','categorie' ])
+
+        <li>
+           <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-3" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+               <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                   <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
+                </svg>
+                 <span class="flex-1 ml-3 font-roboto text-sm text-left whitespace-nowrap">Produit et Service</span>
+                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                  </svg>
-                  <span class="flex-1 ml-3 font-roboto text-sm text-left whitespace-nowrap">Produit et Service</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-            </button>
-            <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                <li>
-                    <a href="{{route('product.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Produit</a>
-                 </li>
-                 <li>
-                    <a href="{{route('service.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Service</a>
-                 </li>
-                  <li>
-                     <a href="{{route('category.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Catégorie</a>
-                  </li>
-            </ul>
+           </button>
+           <ul id="dropdown-example" class="hidden py-2 space-y-2">
+            @can('produit')
+            <li>
+                <a href="{{route('product.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Produit</a>
+             </li>
+            @endcan
+            @can('service')
+            <li>
+               <a href="{{route('service.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Service</a>
+            </li>
+            @endcan
+            @can('categorie')
+            <li>
+               <a href="{{route('category.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Catégorie</a>
+            </li>
+            @endcan
+           </ul>
 
-         </li>
-         <li>
-            <a href="{{route('purchase.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-3 ">
-                <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                    <path d="M7 11H5v1h2v-1Zm4 3H9v1h2v-1Zm-4 0H5v1h2v-1ZM5 5V.13a2.98 2.98 0 0 0-1.293.749L.88 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
-                    <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM13 16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v6Zm-1-8H9a1 1 0 0 1 0-2h3a1 1 0 1 1 0 2Zm0-3H9a1 1 0 0 1 0-2h3a1 1 0 1 1 0 2Z"/>
-                    <path d="M11 11H9v1h2v-1Z"/>
-                  </svg>
-               <span class="ml-3 font-roboto text-sm">Facture d'achat</span>
-            </a>
-         </li>
-         <li>
+        </li>
+        @endcanany
+
+        @can('facture_achat')
+
+        <li>
+           <a href="{{route('purchase.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-3 ">
+               <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                   <path d="M7 11H5v1h2v-1Zm4 3H9v1h2v-1Zm-4 0H5v1h2v-1ZM5 5V.13a2.98 2.98 0 0 0-1.293.749L.88 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                   <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM13 16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v6Zm-1-8H9a1 1 0 0 1 0-2h3a1 1 0 1 1 0 2Zm0-3H9a1 1 0 0 1 0-2h3a1 1 0 1 1 0 2Z"/>
+                   <path d="M11 11H9v1h2v-1Z"/>
+                 </svg>
+              <span class="ml-3 font-roboto text-sm">Facture d'achat</span>
+           </a>
+        </li>
+        @endcan
+        @can('client')
+        <li>
             <a href="{{route('customer.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-3 ">
                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                     <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM13.929 17H7.071a.5.5 0 0 1-.5-.5 3.935 3.935 0 1 1 7.858 0 .5.5 0 0 1-.5.5Z"/>
@@ -152,6 +170,9 @@
                <span class="ml-3 font-roboto text-sm">Client</span>
             </a>
          </li>
+        @endcan
+         @can('facture_vente')
+
          <li>
             <a href="{{route('invoice.index')}}" class="flex items-center p-2 text-gray-200  border-b-[0.05px] border-graye-200 pt-3 ">
                 <svg class="w-5 h-5 text-gray-200 transition duration-75  group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
@@ -160,6 +181,9 @@
 
                <span class="ml-3 font-roboto text-sm">Facture de vente</span>
             </a>
+        </li>
+         @endcan
+         @canany(['user', 'role' ])
 
          <li>
             <button type="button" class="flex items-center p-2 text-gray-200 w-full  border-b-[0.05px] border-graye-200 pt-3" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example2">
@@ -173,14 +197,19 @@
                   </svg>
             </button>
             <ul id="dropdown-example2" class="hidden py-2 space-y-2">
-                  <li>
-                     <a href="{{route('user.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Utlisateurs</a>
-                  </li>
-                  <li>
-                    <a href="{{route('roles.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Roles</a>
-                 </li>
+                @can('user')
+                <li>
+                   <a href="{{route('user.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Utlisateurs</a>
+                </li>
+                @endcan
+                @can('role')
+                <li>
+                  <a href="{{route('roles.index')}}" class="flex items-center w-full  text-gray-200 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 hover:text-blue-950">Roles</a>
+               </li>
+                @endcan
             </ul>
          </li>
+         @endcanany
 
         </ul>
      </div>

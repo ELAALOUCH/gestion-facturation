@@ -25,6 +25,7 @@
                     List
                 </a>
             </li>
+            @can('archiver')
             <li class="mr-2">
                 <a href="{{route('supplier.archive')}}" class="@if ($tab =='archive')
                 inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
@@ -41,6 +42,7 @@
                     Archive
                 </a>
             </li>
+            @endcan
 
     </div>
 
@@ -72,9 +74,11 @@
                         </form>
                     </div>
                     <div>
-                            <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
-                                <a href="{{route('supplier.create')}}">Ajouter</a>
-                            </button>
+                        @can('creer')
+                        <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
+                            <a href="{{route('supplier.create')}}">Ajouter</a>
+                        </button>
+                        @endcan
                     </div>
                 </div>
 
@@ -109,6 +113,7 @@
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->site_web}}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                         <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
+                                            @can('editer')
                                             <li>
                                                 <form action="{{route('supplier.edit',['supplier' =>$supplier->id])}}" method="GET">
                                                     @csrf
@@ -120,6 +125,8 @@
                                                     </button>
                                                 </form>
                                             </li>
+                                            @endcan
+                                            @can('archiver')
                                             <li>
                                                 <form action="{{route('supplier.destroy',['supplier' => $supplier->id])}}" method="POST" >
                                                     @method('DELETE')
@@ -131,6 +138,7 @@
                                                     </button>
                                                 </form>
                                             </li>
+                                            @endcan
                                         </ul>
                                 </td>
                             </tr>

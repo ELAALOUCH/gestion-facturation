@@ -4,7 +4,7 @@
     <div class="border-b border-gray-200 dark:border-gray-700 pl-6">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="mr-2">
-                    <a href="{{route('product.index')}}" class="@if ($tab =='index')
+                    <a href="{{route('invoice.index')}}" class="@if ($tab =='index')
                     inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
                     @else
                     inline-flex font-roboto items-center justify-center p-4 f border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300  group
@@ -19,6 +19,8 @@
                         List
                     </a>
                 </li>
+                @can('archiver')
+
                 <li class="mr-2">
                     <a href="{{route('invoice.archive')}}" class="@if ($tab =='archive')
                     inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
@@ -35,6 +37,7 @@
                         Archive
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
         <div class="mx-auto max-w-screen-xl px-4 lg:px-4">
@@ -64,9 +67,11 @@
                         </form>
                     </div>
                     <div>
-                            <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
-                                <a href="{{route('invoice.create')}}">Ajouter</a>
-                            </button>
+                        @can('creer')
+                        <button type="button" class="text-white bg-gradient-to-r font-roboto from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2 ">
+                            <a href="{{route('invoice.create')}}">Ajouter</a>
+                        </button>
+                        @endcan
                     </div>
                 </div>
             <div class="overflow-x-auto">
@@ -101,10 +106,18 @@
 
                             <td class="px-4 py-3">{{$invoice->date}}</td>
                             <td class="px-4 py-3">{{$invoice->date_echeance}}</td>
-                            <td class="px-4 py-3">{{$invoice->etat_paiement}}</td>
-                            <td>
+                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center">
+                                    @if ( $invoice->etat_paiement =='payé' )
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Payé</span>
+                                    @else
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">En attente</span>
+                                    @endif
+                                </div>
+                            </td>                            <td>
                                 <td >
                                     <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
+                                        @can('voir')
                                         <li>
                                             <form action="{{route('invoice.show',['invoice' =>$invoice->id])}}" method="GET">
                                                 @csrf
@@ -118,6 +131,8 @@
                                                 </button>
                                             </form>
                                         </li>
+                                        @endcan
+                                        @can('editer')
                                         <li>
                                             <form action="{{route('invoice.edit',['invoice' =>$invoice->id])}}" method="GET">
                                                 @csrf
@@ -129,7 +144,9 @@
                                                 </button>
                                             </form>
                                         </li>
+                                        @endcan
                                         <li>
+                                            @can('archiver')
                                             <form action="{{route('invoice.destroy',['invoice' => $invoice->id])}}" method="POST" >
                                                 @method('DELETE')
                                                 @csrf
@@ -140,10 +157,12 @@
                                                       </svg>
                                                 </button>
                                             </form>
+                                            @endcan
                                         </li>
                                     </ul>
                             </td>
                             </td>
+                            @can('supprimer')
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button id="apple-imac-27-dropdown{{$invoice->id}}-button" data-dropdown-toggle="apple-imac-27-dropdown{{$invoice->id}}" class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -163,6 +182,7 @@
                                     </ul>
                                 </div>
                             </td>
+                            @endcan
                         </tr>
                         <div id="delete{{$invoice->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">

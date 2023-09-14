@@ -41,7 +41,6 @@ class UserController extends Controller
             'nom' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'same:confirm'],
-            'status'=> ['required'],
             'role'=> ['required']
 
         ]);
@@ -49,7 +48,7 @@ class UserController extends Controller
                 'name' => $request->nom,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'status'=>$request->status,
+                'company_id'=>Auth::user()->company_id,
             ]);
 
             if ($user){
@@ -88,14 +87,12 @@ class UserController extends Controller
         $request->validate([
             'nom' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
-            'status'=> ['required'],
             'role'=> ['required']
             ]);
 
             $user = User::findorFail($id);
             $user->name= $request->input('nom');
             $user->email= $request->input('email');
-            $user->status = $request->input('status');
 
 
             if ($user->save()){
@@ -112,11 +109,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(User::findOrFail($id)->delete()){
+            Session::flash('status', "L'utilisateur a été supprimeé ");
+        }
+        return redirect()->route('user.index');
+
     }
-
-
-        public function search(Request $request)
+    public function search(Request $request)
         {
             $keyword = $request->input('keyword');
             $number = $request->input('number');
@@ -124,7 +123,6 @@ class UserController extends Controller
             $users = User::where(function ($query) use ($keyword) {
                 $query->where('name', 'LIKE', "%$keyword%")
                       ->orWhere('email', 'LIKE', "%$keyword%")
-                      ->orWhere('status', 'LIKE', "%$keyword%")
                       ->orWhereHas('roles', function ($query) use ($keyword) {
                           $query->where('name', 'LIKE', "%$keyword%");
                       });
@@ -132,5 +130,6 @@ class UserController extends Controller
 
             return view('users.index', compact('users'));
         }
+
 
 }

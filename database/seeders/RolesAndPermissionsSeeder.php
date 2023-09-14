@@ -14,7 +14,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $arrayOfPermission= ['product','product_create','product_edit','product_destroy'];
+        $arrayOfPermission= ['entreprise','dashboard','produit','service','fournisseur','categorie','facture_achat','client','facture_vente','user','role','creer','editer','voir','supprimer','archiver','restorer'];
         $permissions = collect($arrayOfPermission)->map(function($permission){
             return ['name'=>$permission , 'guard_name'=>'web'];
         });
@@ -23,8 +23,5 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $role = Role::create(['name'=>'owner'])
         ->givePermissionTo($arrayOfPermission);
-
-        $role = Role::create(['name'=>'admin'])
-        ->givePermissionTo('product');
     }
 }

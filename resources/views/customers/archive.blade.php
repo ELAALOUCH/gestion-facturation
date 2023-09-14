@@ -48,7 +48,7 @@
         <div class="mx-auto max-w-screen-xl px-4 lg:px-4">
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                
+
                 <div class="overflow-x-auto">
                     <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -78,6 +78,7 @@
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$customer->site_web}}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                         <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
+                                            @can('restorer')
                                             <li>
                                                 <form action="{{route('customer.restore',['id'=>$customer->id])}}" method="POST" >
                                                     @method('PATCH')
@@ -89,6 +90,7 @@
                                                       </button>
                                                 </form>
                                             </li>
+                                            @endcan
                                         </ul>
                                 </td>
                             </tr>

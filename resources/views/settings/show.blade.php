@@ -11,6 +11,7 @@
                         </svg>PROFIL
                     </a>
                 </li>
+                @can('entreprise')
 
                 <li class="mr-2">
                     <a href="{{route('company.index')}}" class="@if ($tab =='company')
@@ -31,6 +32,7 @@
                         ENTREPRISE
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
         @yield('settingsContent')
