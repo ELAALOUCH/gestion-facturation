@@ -10,6 +10,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use NumberToWords\NumberToWords;
 use Symfony\Component\Console\Input\Input;
 
@@ -95,6 +96,8 @@ class InvoiceController extends Controller
                     $invoice->orders()->save(new Order(['invoice_id'=>$invoice->id,'service_id'=>$service['service_id'],'quantite'=>$service['quantity'],'prix'=>floatval($service['price'])]));
                 }
             }
+            Session::flash('status', "La facture a été ajoutée avec succès");
+
         }
 
     }
@@ -171,7 +174,11 @@ class InvoiceController extends Controller
         $invoice->no_virement=null;
       }
 
-      $invoice->save();
+     if( $invoice->save()){
+        Session::flash('status', "La facture a été modifié avec succès");
+      }
+
+      return redirect()->route('invoice.index');
 
     }
 
@@ -189,6 +196,9 @@ class InvoiceController extends Controller
     public function forcedelete(string $id)
     {
         if(Invoice::find($id)->forcedelete()){
+
+            Session::flash('status', "La facture a été supprimer avec succès");
+
             return redirect()->route('invoice.index');
         }
 

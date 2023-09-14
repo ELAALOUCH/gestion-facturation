@@ -79,7 +79,7 @@ class PurchaseInvoiceController extends Controller
                     $invoice->purchaseItems()->save(new PurchaseItem(['invoice_id'=>$invoice->id,'product_id'=>$product['product_id'],'quantite'=>$product['quantity'],'prix_unitaire'=>floatval($product['price'])]));
                 }
             }
-            Session::flash('status', "la facture a été ajoutée");
+            Session::flash('status', "la facture a été ajoutée avec succès");
             return redirect()->route('purchase.index');
 
         }else{
@@ -95,9 +95,9 @@ class PurchaseInvoiceController extends Controller
             }
 
             Session::flash('status', "la facture a été ajoutée");
-            return redirect()->route('purchase.index');
 
         }
+        return redirect()->route('purchase.index');
     }
 
     /**
@@ -166,7 +166,10 @@ class PurchaseInvoiceController extends Controller
         $invoice->document = $path;
       }
 
-      $invoice->save();
+      if($invoice->save()){
+        Session::flash('status', "la facture a été modifiée avec succès");
+      }
+      return redirect()->route('purchase.index');
 
     }
 
@@ -179,7 +182,7 @@ class PurchaseInvoiceController extends Controller
         if (($invoice->delete()))
         {
          $invoice->purchaseItems()->delete();
-            Session::flash('status', "la facture a été supprimée");
+            Session::flash('status', "la facture a été supprimée avec succès ");
         }
         return redirect()->route('purchase.index');
     }
