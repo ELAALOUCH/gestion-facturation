@@ -15,6 +15,7 @@ class Customer extends Model
     {
         parent::boot();
 
+
         static::creating(function ($customer) {
 
             $lastCustomer = Customer::withTrashed()->orderByDesc('code_client')->first();
@@ -27,6 +28,9 @@ class Customer extends Model
                 $customer->code_client = '0001';
             }
         });
+
+
+
     }
 
     public function invoices(): HasMany

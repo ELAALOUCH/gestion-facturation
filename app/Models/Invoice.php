@@ -48,6 +48,7 @@ class Invoice extends Model
 
         static::restored(function ($invoice) {
             $invoice->orders()->onlyTrashed()->restore();
+            $invoice->customer()->restore();
         });
     }
 

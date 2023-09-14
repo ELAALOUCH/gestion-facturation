@@ -120,13 +120,19 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        if ((Supplier::where('id', $id)->delete()))
-        {
-            Session::flash('status', "Le fournisseur a été supprimé");
-        }
-        return redirect()->route('supplier.index');
+    $supplier = Supplier::find($id);
 
+    if ($supplier) {
+        $supplier->purchaseInvoices()->delete();
+
+        $supplier->delete();
+
+        Session::flash('status', "Le fournisseur a été supprimé");
     }
+
+    return redirect()->route('supplier.index');
+}
+
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -169,6 +175,8 @@ class SupplierController extends Controller
 
         if ($supplier) {
             $supplier->restore();
+
+            $supplier->purchaseInvoices()->restore();
         }
 
         return redirect()->back();

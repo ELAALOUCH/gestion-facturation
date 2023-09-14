@@ -189,6 +189,7 @@ class InvoiceController extends Controller
     public function destroy(string $id)
     {
         if(Invoice::find($id)->delete()){
+
             return redirect()->route('invoice.index');
         }
 

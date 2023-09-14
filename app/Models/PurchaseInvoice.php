@@ -52,6 +52,8 @@ class PurchaseInvoice extends Model
 
         static::restored(function ($invoice) {
             $invoice->purchaseItems()->onlyTrashed()->restore();
+            $invoice->supplier()->restore();
+
         });
 
 }

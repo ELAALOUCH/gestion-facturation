@@ -64,7 +64,7 @@
 
                         <tr class="border-b dark:border-gray-700">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$invoice->numero}}</th>
-                            <td class="px-4 py-3">{{$invoice->customer->nom}}</td>
+                            <td class="px-4 py-3">{{$invoice->customer->nom ?? ''}}</td>
                             <td class="px-4 py-3 uppercase">{{$invoice->type}}</td>
 
                             <td class="px-4 py-3">{{$invoice->date}}</td>

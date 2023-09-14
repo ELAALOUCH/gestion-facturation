@@ -86,26 +86,34 @@ class CustomerController extends Controller
         return redirect()->route('customer.index');
       }
 
-    public function destroy(string $id)
-    {
-        if ((Customer::where('id', $id)->delete()))
-        {
-            Session::flash('status', "Le client a été supprimé");
-        }
-        return redirect()->route('customer.index');
+      public function destroy(string $id)
+      {
+          $customer = Customer::find($id);
 
-    }
+          if ($customer) {
+              $customer->invoices()->delete();
 
-    public function restore($id)
-    {
-        $customer = Customer::withTrashed()->find($id);
+              $customer->delete();
 
-        if ($customer) {
-            $customer->restore();
-        }
+              Session::flash('status', "Le client a été supprimé");
+          }
 
-        return redirect()->back();
-    }
+          return redirect()->route('customer.index');
+      }
+
+
+      public function restore($id)
+      {
+          $customer = Customer::withTrashed()->find($id);
+
+          if ($customer) {
+              $customer->restore();
+
+              $customer->invoices()->restore();
+          }
+
+          return redirect()->back();
+      }
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');

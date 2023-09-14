@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
@@ -74,7 +76,13 @@ class DashboardController extends Controller
         $topServiceIds = $topServices->pluck('service_id')->toArray();
 
         $topServiceDetails = Service::whereIn('id', $topServiceIds)->get();
+        $nbrUsers = Auth::user()->company->users()->count();
+        $totalCA = Invoice::withoutTrashed()
+        ->sum('total_tva');
+        $totalInvoice = Invoice::withoutTrashed()->count();
+        $totalClient = Customer::withoutTrashed()->count();
 
-        return view('dashboard',compact('chart1','chart2','customersWithTotalTVA','topProductDetails','topProducts','topServices','topServiceDetails'));
+
+        return view('dashboard',compact('chart1','chart2','customersWithTotalTVA','topProductDetails','topProducts','topServices','topServiceDetails','nbrUsers','totalCA','totalInvoice','totalClient'));
     }
 }
