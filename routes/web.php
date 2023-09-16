@@ -78,6 +78,8 @@ Route::middleware(['auth','company.check'])->group(function () {
     Route::get('product.search', [ProductController::class,'search'])->name('product.search');
     Route::get('product.archive',[ProductController::class ,'archive'])->name('product.archive');
     Route::patch('/product/{id}/restore',[ProductController::class,'restore'])->name('product.restore');
+    Route::get('/products/export', [ProductController::class,'exportExcel'])->name('product.export');
+    Route::get('products/export-pdf', [ProductController::class,'exportPdf'])->name('product.export-pdf');
 
     //les roles
     Route::resource('roles',RoleController::class);
@@ -106,6 +108,8 @@ Route::middleware(['auth','company.check'])->group(function () {
     Route::get('service.search', [ServiceController::class,'search'])->name('service.search');
     Route::patch('service/{id}/restore',[ServiceController::class,'restore'])->name('service.restore');
     Route::delete('service/{id}/forcedelelete',[ServiceController::class,'forcedelete'])->name('service.forcedelete');
+    Route::get('/services/export', [ServiceController::class,'exportExcel'])->name('service.export');
+    Route::get('services/export-pdf', [ServiceController::class,'exportPdf'])->name('service.export-pdf');
 
     // les routes des clients
     Route::resource('customer',CustomerController::class)->except(['show']);

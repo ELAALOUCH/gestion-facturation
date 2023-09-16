@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Spatie\SimpleExcel\SimpleExcelWriter;
+use PDF;
 
 class ServiceController extends Controller
 {
@@ -129,6 +131,41 @@ class ServiceController extends Controller
             return redirect()->route('invoice.index');
         }
 
+    }
+
+    public function exportExcel()
+    {
+    $services = Service::with('supplier')->get();
+
+    $excel = SimpleExcelWriter::streamDownload('services.xlsx');
+
+    $headers = ['Nom', 'Description', 'Type', 'Nom du Fournisseur'];
+
+    $excel->addRow($headers);
+
+    foreach ($services as $service) {
+        $nomFournisseur = $service->supplier->nom ?? '';
+
+        $excel->addRow([
+            $service->nom,
+            $service->description,
+            $service->type,
+            $nomFournisseur,
+        ]);
+    }
+
+    $excel->toBrowser();
+
+    }
+
+
+    public function exportPdf()
+    {
+    $services = Service::all();
+
+    $pdf = PDF::loadView('pdf.pdf-services', ['services' => $services]);
+
+    return $pdf->download('services.pdf');
     }
 
 }

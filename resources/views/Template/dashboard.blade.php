@@ -213,9 +213,8 @@
   </aside>
 
     {{-- Un contenu dynamique  --}}
-    <div class="p-4 sm:ml-64">
-        <div class="p-4  bg-white" id="print" >
-
+    <div class="px-4 py-3 sm:ml-64">
+        <div class="px-4 py-1 bg-white" id="print" >
             @yield('content')
         </div>
     </div>

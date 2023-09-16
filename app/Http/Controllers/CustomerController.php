@@ -137,6 +137,7 @@ class CustomerController extends Controller
 
     public function exportCustomers()
     {
+
     $customers = Customer::select('code_client','ice','nom','telephone','adresse','ville','site_web')->get();
 
     $excel = SimpleExcelWriter::streamDownload('customers.xlsx');
@@ -144,6 +145,7 @@ class CustomerController extends Controller
     $excel->addRows($customers->toArray());
 
     $excel->toBrowser();
+    
     }
 
     public function exportPdf()

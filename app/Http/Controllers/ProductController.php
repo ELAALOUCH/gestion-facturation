@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Spatie\SimpleExcel\SimpleExcelWriter;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -178,5 +180,24 @@ class ProductController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function exportExcel()
+    {
+        $products = Product::select('id','designation','stock','stock_alert')->get();
+
+        $excel = SimpleExcelWriter::streamDownload('products.xlsx');
+
+        $excel->addRows($products->toArray());
+
+        $excel->toBrowser();
+    }
+    public function exportPdf()
+    {
+    $products = Product::all();
+
+    $pdf = PDF::loadView('pdf.pdf-products', ['products' => $products]);
+
+    return $pdf->download('producs.pdf');
     }
 }
