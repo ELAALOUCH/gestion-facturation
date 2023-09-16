@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Spatie\SimpleExcel\SimpleExcelWriter;
+
 
 class CustomerController extends Controller
 {
@@ -131,6 +133,17 @@ class CustomerController extends Controller
                             ->appends(['keyword' => $keyword, 'number' => $number]);
 
         return view('customers.index', compact('customers','tab'));
+    }
+
+    public function exportCustomers()
+    {
+    $customers = Customer::select('code_client','ice','nom','telephone','adresse','ville','site_web')->get();
+
+    $excel = SimpleExcelWriter::streamDownload('customers.xlsx');
+
+    $excel->addRows($customers->toArray());
+
+    $excel->toBrowser();
     }
 
 }

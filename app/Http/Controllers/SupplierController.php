@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Spatie\SimpleExcel\SimpleExcelWriter;
+use PDF;
 
 class SupplierController extends Controller
 {
@@ -180,6 +182,30 @@ class SupplierController extends Controller
         }
 
         return redirect()->back();
+    }
+
+
+
+    public function exportExcel()
+    {
+    $suppliers = Supplier::select('ice','nom','telephone','adresse','ville','site_web')->get();
+
+    $excel = SimpleExcelWriter::streamDownload('suppliers.xlsx');
+
+    $excel->addRows($suppliers->toArray());
+
+    $excel->toBrowser();
+    }
+
+    public function exportPdf()
+    {
+    $suppliers = Supplier::all();
+
+    // Générez le contenu PDF en utilisant la vue Blade
+    $pdf = PDF::loadView('pdf.pdf-suppliers', ['suppliers' => $suppliers]);
+
+    // Téléchargez le PDF ou affichez-le directement dans le navigateur
+    return $pdf->download('suppliers.pdf');
     }
 
 }
