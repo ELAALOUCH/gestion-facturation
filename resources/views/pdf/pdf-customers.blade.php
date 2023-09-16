@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des Fournisseurs</title>
+    <title>Liste des clients</title>
     <style>
         /* Styles CSS pour le PDF */
         body {
@@ -58,13 +59,14 @@
 </head>
 <body>
     <div class="header">
-        <h1>Liste des Fournisseurs</h1>
+        <h1>Liste des clients</h1>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
                 <tr>
+                    <th>CODE CLIENT</th>
                     <th>ICE</th>
                     <th>Nom</th>
                     <th>Téléphone</th>
@@ -74,14 +76,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($suppliers as $supplier)
+                @foreach ($customers as $customer)
                     <tr>
-                        <td>{{ $supplier->ice }}</td>
-                        <td>{{ $supplier->nom }}</td>
-                        <td>{{ $supplier->telephone }}</td>
-                        <td class="adresse">{{ $supplier->adresse }}</td>
-                        <td>{{ $supplier->ville }}</td>
-                        <td class="site">{{ $supplier->site_web }}</td>
+                        <td>{{ $customer->code_client }}</td>
+                        <td>{{ $customer->ice }}</td>
+                        <td>{{ $customer->nom }}</td>
+                        <td>{{ $customer->telephone }}</td>
+                        <td class="adresse">{{ $customer->adresse }}</td>
+                        <td>{{ $customer->ville }}</td>
+                        <td class="site">{{ $customer->site_web }}</td>
                     </tr>
                 @endforeach
             </tbody>

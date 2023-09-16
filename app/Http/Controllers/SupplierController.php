@@ -201,10 +201,8 @@ class SupplierController extends Controller
     {
     $suppliers = Supplier::all();
 
-    // Générez le contenu PDF en utilisant la vue Blade
     $pdf = PDF::loadView('pdf.pdf-suppliers', ['suppliers' => $suppliers]);
-
-    // Téléchargez le PDF ou affichez-le directement dans le navigateur
+    
     return $pdf->download('suppliers.pdf');
     }
 

@@ -113,6 +113,7 @@ Route::middleware(['auth','company.check'])->group(function () {
     Route::get('customer.search', [CustomerController::class,'search'])->name('customer.search');
     Route::patch('customer/{id}/restore',[CustomerController::class,'restore'])->name('customer.restore');
     Route::get('customer/export-suppliers', [CustomerController::class,'exportCustomers'])->name('customers.export');
+    Route::get('customers/export-pdf', [CustomerController::class,'exportPdf'])->name('customer.export-pdf');
 
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');

@@ -6,7 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Spatie\SimpleExcel\SimpleExcelWriter;
-
+use PDF;
 
 class CustomerController extends Controller
 {
@@ -144,6 +144,15 @@ class CustomerController extends Controller
     $excel->addRows($customers->toArray());
 
     $excel->toBrowser();
+    }
+
+    public function exportPdf()
+    {
+    $customers = Customer::all();
+
+    $pdf = PDF::loadView('pdf.pdf-customers', ['customers' => $customers]);
+
+    return $pdf->download('customers.pdf');
     }
 
 }
