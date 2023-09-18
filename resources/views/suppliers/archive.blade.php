@@ -101,7 +101,7 @@
                                 <td scope="row" class="px-4 py-3  text-gray-900 whitespace-nowrap dark:text-white font-roboto ">{{$supplier->site_web}}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                         <ul class="py-1 text-sm flex flex-row" aria-labelledby="benq-ex2710q-dropdown-button">
-                                            @can('restorer')
+                                            @can('restaurer')
                                             <li>
                                                 <form action="{{route('supplier.restore',['id'=>$supplier->id])}}" method="POST" >
                                                     @method('PATCH')

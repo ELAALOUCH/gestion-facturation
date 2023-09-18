@@ -102,13 +102,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($customersWithTotalTVA as $customer)
+                        @foreach ($customersWithTotalht as $customer)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$customer->nom}}
                             </th>
                             <td class="px-6 py-4">
-                               {{ $customer->total_tva_sum}} MAD
+                               {{ $customer->total_ht_sum}} MAD
                             </td>
                         </tr>
                         @endforeach

@@ -16,11 +16,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $customersWithTotalTVA = Customer::select('customers.nom', DB::raw('SUM(invoices.total_tva) as total_tva_sum'))
+        $customersWithTotalht = Customer::select('customers.nom', DB::raw('SUM(invoices.total_ht) as total_ht_sum'))
         ->leftJoin('invoices', 'customers.id', '=', 'invoices.customer_id')
-        ->whereNull('invoices.deleted_at') 
+        ->whereNull('invoices.deleted_at')
         ->groupBy('customers.nom')
-        ->orderByDesc('total_tva_sum')
+        ->orderByDesc('total_ht_sum')
         ->limit(5)
         ->get();
 
@@ -76,11 +76,11 @@ class DashboardController extends Controller
         $topServiceDetails = Service::whereIn('id', $topServiceIds)->get();
         $nbrUsers = Auth::user()->company->users()->count();
         $totalCA = Invoice::withoutTrashed()
-        ->sum('total_tva');
+        ->sum('total_ht');
         $totalInvoice = Invoice::withoutTrashed()->count();
         $totalClient = Customer::withoutTrashed()->count();
 
 
-        return view('dashboard',compact('chart1','chart2','customersWithTotalTVA','topProductDetails','topProducts','topServices','topServiceDetails','nbrUsers','totalCA','totalInvoice','totalClient'));
+        return view('dashboard',compact('chart1','chart2','customersWithTotalht','topProductDetails','topProducts','topServices','topServiceDetails','nbrUsers','totalCA','totalInvoice','totalClient'));
     }
 }

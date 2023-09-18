@@ -32,6 +32,27 @@
                         ENTREPRISE
                     </a>
                 </li>
+
+                <li class="mr-2">
+                    <a href="{{route('profile.edit')}}" class="@if ($tab =='profile')
+                    inline-flex items-center justify-center p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group
+                    @else
+                    inline-flex font-roboto items-center justify-center p-4 f border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300  group
+                    @endif"
+                    aria-current="page"
+                >
+                        <svg class="@if ($tab=='profile')
+                        w-4 h-4 mr-2 text-blue-600
+                        @else
+                        w-4 h-4 mr-2 text-gray-400 group-hover:text-gray-500
+                        @endif "
+                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                            <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"/>
+                          </svg>
+                        Profile
+                    </a>
+                </li>
+
                 @endcan
             </ul>
         </div>

@@ -71,17 +71,17 @@
                             <td class="px-4 py-3">{{$invoice->date_echeance}}</td>
                             <td class="px-4 py-3">{{$invoice->etat_paiement}}</td>
                             <td class="px-4 py-3 font-roboto text-gray-900 whitespace-nowrap dark:text-white">
+                                @can('restaurer')
                                 <form action="{{route('invoice.restore',['id'=>$invoice->id])}}" method="POST" >
                                     @method('PATCH')
-                                    @can('restorer')
                                     <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
                                         <span class="relative px-2 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                             Restaurer
                                         </span>
                                     </button>
-                                    @endcan
                                     @csrf
                                 </form>
+                                @endcan
                         </td>
 
                         </tr>

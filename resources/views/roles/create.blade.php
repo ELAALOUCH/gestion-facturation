@@ -33,7 +33,7 @@
     <section class="bg-white dark:bg-gray-900">
 
         @php
-            $roles =['entreprise','dashboard','produit','service','fournisseur','categorie','facture_achat','client','facture_vente','user','role','creer','editer','voir','supprimer','archiver','restorer'];
+            $roles =['entreprise','dashboard','produit','service','fournisseur','categorie','facture_achat','client','facture_vente','user','role','creer','editer','voir','supprimer','archiver','archive','restaurer'];
         @endphp
 
         <div class=" px-4 mx-auto max-w-2xl lg:py-4">

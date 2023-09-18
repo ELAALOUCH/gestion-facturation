@@ -19,7 +19,7 @@
                         List
                     </a>
                 </li>
-                @can('archiver')
+                @can('archive')
 
                 <li class="mr-2">
                     <a href="{{route('invoice.archive')}}" class="@if ($tab =='archive')
