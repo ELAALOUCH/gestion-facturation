@@ -32,7 +32,6 @@
             </ol>
         </nav>
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-10">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un fournisseur</h2>
             <form action="{{route('supplier.update',['supplier' =>$supplier->id])}}" method="POST"  >
                 @method('PUT')
                 @csrf

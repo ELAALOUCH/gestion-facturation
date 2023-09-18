@@ -96,7 +96,7 @@
                             </div>
                         @else
 
-                        <p class=" h-11 w-full pt-2.5 bg-blue-50 my-8 pl-2 font-roboto font-bold text-blue-950 border-l-4 border-blue-900">Le produits :</p>
+                        <p class=" h-11 w-full pt-2.5 bg-blue-50 my-8 pl-2 font-roboto font-bold text-blue-950 border-l-4 border-blue-900">Les produits :</p>
                         @foreach ($invoice->purchaseItems as $key => $value)
                             <div class="grid gap-6 mb-6 md:grid-cols-5 items-center">
                                 <div>

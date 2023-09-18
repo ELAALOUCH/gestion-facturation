@@ -35,7 +35,6 @@ class OrderObserver
      */
     public function deleted(Order $order): void
     {
-        //
     }
 
     /**

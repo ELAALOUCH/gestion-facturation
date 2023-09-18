@@ -44,7 +44,6 @@ class InvoiceController extends Controller
         $lastInvoice = Invoice::withTrashed()->whereYear('created_at', $currentYear)->orderByDesc('created_at')->first();
 
         if ($lastInvoice) {
-            // Obtenir le numéro après le dernier '/' dans la colonne 'number' de la dernière facture
             $lastInvoiceNumber = $lastInvoice->numero;
             $lastInvoiceNumber = intval(substr($lastInvoiceNumber, strpos($lastInvoiceNumber, '/') + 1));
 

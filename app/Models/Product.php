@@ -24,7 +24,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function purchaseItem(): HasMany
+    public function purchaseItems(): HasMany
     {
         return $this->hasMany(purchaseItem::class,'product_id');
     }

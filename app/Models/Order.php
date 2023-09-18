@@ -15,7 +15,7 @@ class Order extends Model
 
     public function invoice(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Invoice::class);
     }
     public function product(): BelongsTo
     {
@@ -24,6 +24,22 @@ class Order extends Model
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($order) {
+            $order->invoice()->delete();
+
+        });
+
+
+
+        static::restored(function ($order) {
+            $order->invoice()->restore();
+        });
     }
 
 }

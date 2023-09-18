@@ -91,11 +91,23 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        if(Service::findOrFail($id)->delete()){
+        $service = Service::findOrFail($id);
 
-            Session::flash('status', "Le service a été supprimé avec succès.");
+        $orders = $service->orders;
+        $purchaseItems = $service->purchaseItems;
 
+
+        if ($service->delete()) {
+            foreach ($orders as $order) {
+                $order->delete();
+            }
+            foreach ($purchaseItems as $purchaseItem) {
+                $purchaseItem->delete();
+            }
+
+            Session::flash('status', "Le service a été archivé avec succès");
         }
+
         return redirect()->route('service.index');
     }
 
@@ -116,14 +128,22 @@ class ServiceController extends Controller
     public function restore($id)
     {
 
-        $service = Service::withTrashed()->find($id);
+        $service = Service::onlyTrashed()->findOrFail($id);
+        $orders = $service->orders()->withTrashed()->get();
+        $purchaseItems = $service->purchaseItems()->withTrashed()->get();
 
-        if ($service) {
-            $service->restore();
+        if ($service->restore()) {
+            foreach ($orders as $order) {
+                $order->restore();
+            }
+            foreach ($purchaseItems as $purchaseItem) {
+                $purchaseItem->restore();
+            }
         }
 
         return redirect()->back();
     }
+
 
     public function forcedelete(string $id)
     {

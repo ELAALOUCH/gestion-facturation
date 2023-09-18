@@ -22,7 +22,7 @@ class Service extends Model
 
     public function purchaseItems()
     {
-        return $this->hasMany(purchaseItems::class,'service_id');
+        return $this->hasMany(PurchaseItem::class,'service_id');
     }
     public function orders(): HasMany
     {

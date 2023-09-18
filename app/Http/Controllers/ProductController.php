@@ -124,14 +124,26 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+        $product = Product::findOrFail($id);
 
-        if ((Product::where('id', $id)->delete()))
-        {
-            Session::flash('status', "Le produit a été supprimé avec succès");
+        $orders = $product->orders;
+        $purchaseItems = $product->purchaseItems;
+
+
+        if ($product->delete()) {
+            foreach ($orders as $order) {
+                $order->delete();
+            }
+            foreach ($purchaseItems as $purchaseItem) {
+                $purchaseItem->delete();
+            }
+
+            Session::flash('status', "Le produit a été archivé avec succès");
         }
-        return redirect()->route('product.index');
 
+        return redirect()->route('product.index');
     }
+
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -173,10 +185,17 @@ class ProductController extends Controller
     public function restore($id)
     {
 
-        $product = Product::withTrashed()->find($id);
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $orders = $product->orders()->withTrashed()->get();
+        $purchaseItems = $product->purchaseItems()->withTrashed()->get();
 
-        if ($product) {
-            $product->restore();
+        if ($product->restore()) {
+            foreach ($orders as $order) {
+                $order->restore();
+            }
+            foreach ($purchaseItems as $purchaseItem) {
+                $purchaseItem->restore();
+            }
         }
 
         return redirect()->back();

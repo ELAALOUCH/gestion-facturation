@@ -32,8 +32,14 @@ class PurchaseItem extends Model
     {
         parent::boot();
 
-        static::deleting(function ($item) {
-            dd(5);
+        static::deleted(function ($purchaseItem) {
+            $purchaseItem->purchaseInvoice()->delete();
+        });
+
+
+
+        static::restored(function ($purchaseItem) {
+            $purchaseItem->purchaseInvoice()->restore();
         });
     }
 }

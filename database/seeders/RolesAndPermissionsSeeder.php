@@ -14,7 +14,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $arrayOfPermission= ['entreprise','dashboard','produit','service','fournisseur','categorie','facture_achat','client','facture_vente','user','role','creer','editer','voir','supprimer','archiver','restorer'];
+        $arrayOfPermission= ['entreprise','dashboard','produit','service','fournisseur','categorie','facture_achat','client','facture_vente','user','role','creer','editer','voir','supprimer','archiver','archive','restaurer'];
         $permissions = collect($arrayOfPermission)->map(function($permission){
             return ['name'=>$permission , 'guard_name'=>'web'];
         });
