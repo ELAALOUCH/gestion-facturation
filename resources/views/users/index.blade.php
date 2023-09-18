@@ -23,6 +23,8 @@
                             <tr>
                                 <th scope="col" class="px-4 py-4 ">#</th>
                                 <th scope="col" class="px-4 py-3">nom</th>
+                                <th scope="col" class="px-4 py-3">username</th>
+
                                 <th scope="col" class="px-4 py-3">email</th>
                                 <th scope="col" class="px-4 py-3">role</th>
                                 <th scope="col" class="px-4 py-3">
@@ -36,6 +38,8 @@
                     <tr class="border-b dark:border-gray-700">
                         <td scope="row" class="px-4 py-3 font-ROBOTO text-gray-900 whitespace-nowrap dark:text-white ">{{$user->id}}</td>
                         <td scope="row" class="px-4 py-3 font-ROBOTO text-gray-900 whitespace-nowrap dark:text-white">{{$user->name}}</td>
+                        <td scope="row" class="px-4 py-3 font-ROBOTO text-gray-900 whitespace-nowrap dark:text-white">{{$user->username}}</td>
+
                             <td scope="row" class="px-4 py-3 font-ROBOTO text-gray-900 whitespace-nowrap dark:text-white">{{$user->email}}</td>
                             <td scope="row" class="px-4 py-3 font-ROBOTO text-gray-900 whitespace-nowrap dark:text-white">
 

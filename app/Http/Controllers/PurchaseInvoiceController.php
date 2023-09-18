@@ -130,8 +130,8 @@ class PurchaseInvoiceController extends Controller
         $invoice->supplier_id=$request->input('fournisseur');
         $invoice->date=$request->input('date');
         $invoice->date_echeance=$request->input('date_echeance');
-        if($request->input('etat_paiement') == 'payé' ){
-            $invoice->etat_paiement='payé';
+        if($request->input('etat_paiement') == 'Payée' ){
+            $invoice->etat_paiement='Payée';
             if($request->input('moyen_paiement')=='chèque'){
                 $invoice->moyen_paiement='chèque';
                 if($request->input('n_cheque')){
@@ -150,9 +150,13 @@ class PurchaseInvoiceController extends Controller
             }
             else{
                 $invoice->moyen_paiement='espèce';
+                $invoice->no_cheque=null;
+                $invoice->no_virement=null;
+
+
             }
       }else{
-        $invoice->etat_paiement='en attente';
+        $invoice->etat_paiement='En attente';
         $invoice->moyen_paiement=null;
         $invoice->no_cheque=null;
         $invoice->no_virement=null;

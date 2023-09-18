@@ -148,8 +148,8 @@ class InvoiceController extends Controller
 
 
 
-        if($request->input('etat_paiement') == 'payé' ){
-            $invoice->etat_paiement='payé';
+        if($request->input('etat_paiement') == 'Payée' ){
+            $invoice->etat_paiement='Payée';
             if($request->input('moyen_paiement')=='chèque'){
                 $invoice->moyen_paiement='chèque';
                 if($request->input('n_cheque')){
@@ -166,9 +166,12 @@ class InvoiceController extends Controller
             }
             else{
                 $invoice->moyen_paiement='espèce';
+                $invoice->no_cheque=null;
+                $invoice->no_virement=null;
+
             }
       }else{
-        $invoice->etat_paiement='en attente';
+        $invoice->etat_paiement='En attente';
         $invoice->moyen_paiement=null;
         $invoice->no_cheque=null;
         $invoice->no_virement=null;

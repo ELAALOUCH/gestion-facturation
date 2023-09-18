@@ -39,6 +39,7 @@ class UserController extends Controller
     {
         $request->validate([
             'nom' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'same:confirm'],
             'role'=> ['required']
@@ -46,6 +47,8 @@ class UserController extends Controller
         ]);
             $user = User::create([
                 'name' => $request->nom,
+                'username' => $request->username,
+
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'company_id'=>Auth::user()->company_id,
@@ -86,6 +89,7 @@ class UserController extends Controller
     {
         $request->validate([
             'nom' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($id)],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'role'=> ['required']
             ]);
@@ -93,6 +97,7 @@ class UserController extends Controller
             $user = User::findorFail($id);
             $user->name= $request->input('nom');
             $user->email= $request->input('email');
+            $user->username= $request->input('username');
 
 
             if ($user->save()){

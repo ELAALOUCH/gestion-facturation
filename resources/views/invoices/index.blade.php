@@ -108,8 +108,8 @@
                             <td class="px-4 py-3">{{$invoice->date_echeance}}</td>
                             <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex items-center">
-                                    @if ( $invoice->etat_paiement =='payé' )
-                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Payé</span>
+                                    @if ( $invoice->etat_paiement =='Payée' )
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Payée</span>
                                     @else
                                         <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">En attente</span>
                                     @endif

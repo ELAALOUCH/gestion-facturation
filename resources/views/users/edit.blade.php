@@ -43,6 +43,7 @@
                         @error('nom') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
 
                     </div>
+
                     <div>
                         <label for="email" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"   value="{{old('email',$user->email)}}">
@@ -50,10 +51,16 @@
 
                     </div>
                     <div>
+                        <label for="username" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Username</label>
+                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"   value="{{old('username',$user->username)}}">
+                        @error('username') <span class="text-red-600 font-roboto">{{ $message }}</span> @enderror
+
+                    </div>
+                    <div>
                         <label for="role" class="block mb-2 text-sm font-roboto text-gray-900 dark:text-white">Rôle</label>
                         <select required id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             @foreach ($roles as $role)
-                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                <option @if($user->hasRole($role->name)) selected @endif value="{{ $role->name }}">
                                     {{ $role->name }}
                                 </option>
                             @endforeach
@@ -61,7 +68,7 @@
                     </div>
                 </div>
                 <button type="submit" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-6">
-                   Ajouter
+                   Modifier
                 </button>
             </form>
         </div>
