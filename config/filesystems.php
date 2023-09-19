@@ -55,7 +55,14 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => "178.238.230.40",
+            'port'     => 21,
+            'username' => "gstock@servima.servima",
+            'password' => "Gstock2023!",
+            'root'     => '/',
+        ],
     ],
 
     /*

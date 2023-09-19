@@ -43,7 +43,7 @@
                                     <a href="#" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Mon profil</a>
                                 </li> --}}
                                 <li>
-                                    <a href="{{route('setting.show')}}" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Paramètres</a>
+                                    <a href="/company" class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Paramètres</a>
                                 </li>
                             </ul>
 
