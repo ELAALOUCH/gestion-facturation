@@ -132,6 +132,19 @@ class PurchaseInvoiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $validated = $request->validate([
+            'fournisseur' => 'required',
+            'date' => 'required|date',
+            'etat_paiement' => 'required',
+            'type' => 'required',
+            'moyen_paiement' =>'required_if:etat_paiement,1',
+            'n_cheque' => '',
+            'n_virement' => '',
+            'document' => 'file|mimes:pdf,jpeg,png,gif',
+            'justif' => 'file|mimes:pdf,jpeg,png,gif'
+
+        ]);
         $invoice= PurchaseInvoice::findOrFail($id);
 
         $invoice->supplier_id=$request->input('fournisseur');
