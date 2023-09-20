@@ -87,7 +87,7 @@
                                   <th scope="col" class="p-4">Fournisseur</th>
                                   <th scope="col" class="p-4">Echéance</th>
                                   <th scope="col" class="p-4">Etat de paiement</th>
-                                  <th scope="col" class="p-4">Document</th>
+                                  <th scope="col" class="p-4">Facture</th>
                                   <th scope="col" class="p-4"></th>
                                   <th scope="col" class="p-4"></th>
                                   <th scope="col" class="p-4"></th>
@@ -125,7 +125,7 @@
                                   </td>
 
 
-                                  <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                  <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center justify-center">
                                       <div class="flex items-center">
                                           @if ( $invoice->etat_paiement =='Payée' )
                                               <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Payée</span>

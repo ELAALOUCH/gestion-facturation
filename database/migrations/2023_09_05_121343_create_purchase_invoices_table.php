@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('purchase_invoices', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->date('date_echeance');
+            $table->date('date_echeance')->nullable();
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->string('etat_paiement');
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('no_cheque')->nullable();
             $table->string('no_virement')->nullable();
             $table->string('document')->nullable();
+            $table->string('justif')->nullable();
+
             $table->timestamps();
         });
     }

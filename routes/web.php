@@ -96,6 +96,7 @@ Route::middleware(['auth','company.check'])->group(function () {
 
     // les routes des achats
     Route::resource('purchase', PurchaseInvoiceController::class);
+    Route::get('purchase/downloadJustif/{id}', [PurchaseInvoiceController::class, 'downloadJustif'])->name('purchase.downloadJustif');
     Route::get('purchase/download/{id}', [PurchaseInvoiceController::class, 'download'])->name('purchase.download');
     Route::delete('purchase/{id}/forcedelelete',[PurchaseInvoiceController::class,'forcedelete'])->name('purchase.forcedelete');
     Route::patch('purchase/{id}/restore',[PurchaseInvoiceController::class,'restore'])->name('purchase.restore');
@@ -129,7 +130,7 @@ Route::middleware(['auth','company.check'])->group(function () {
 
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');
 
-    
+
 
 });
 

@@ -5,30 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
-
+use Illuminate\Support\Facades\Artisan;
 
 class backupController extends Controller
 {
 
     public function backup()
     {
-        // Source directory path
-        $sourceDirectory = public_path('storage');
-
-        $destinationDirectory = '/BackUp';
-
-        // Create an instance of the Filesystem
-        $filesystem = new Filesystem();
+        Artisan::call('backup:run --only-db --disable-notifications');
 
 
-        $items = $filesystem->allFiles($sourceDirectory);
+        dd($output = Artisan::output());
 
-        foreach ($items as $item) {
-            $relativePath = $item->getRelativePathname();
-            $destinationPath = $destinationDirectory . '/' . $relativePath;
-            Storage::disk('ftp')->put($destinationPath, file_get_contents($item->getPathname()));
-        }
-
-        return "Directory copied to FTP server.";
+         return redirect()->route('dashboard')->with('status', $output);
     }
 }

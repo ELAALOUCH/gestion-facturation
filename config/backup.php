@@ -84,6 +84,7 @@ return [
             ],
         ],
 
+
         /*
          * The database dump can be compressed to decrease disk space usage.
          *

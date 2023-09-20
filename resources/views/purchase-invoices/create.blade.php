@@ -94,9 +94,14 @@
 
                 </div>
                 <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="document">Téléchargez la facture </label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="document"> La facture </label>
                     <input name="document" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"  id="document" type="file">
                     @error('document') <span class="text-red-300">{{ $message }}</span> @enderror
+                </div>
+                <div x-show="etat == 'Payée'">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="document">Justif de paiement </label>
+                    <input name="justif" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"  id="document" type="file">
+                    @error('justif') <span class="text-red-300">{{ $message }}</span> @enderror
                 </div>
             </div>
 

@@ -62,12 +62,19 @@ class PurchaseInvoiceController extends Controller
             'moyen_paiement' =>'required_if:etat_paiement,1',
             'n_cheque' => '',
             'n_virement' => '',
-            'document' => 'file|mimes:pdf,jpeg,png,gif'
+            'document' => 'file|mimes:pdf,jpeg,png,gif',
+            'justif' => 'file|mimes:pdf,jpeg,png,gif'
+
         ]);
         $invoice = PurchaseInvoice::create(['supplier_id' => $request->input('fournisseur'),'date'=>$request->input('date'),'date_echeance'=>$request->input('date_echeance'),'etat_paiement'=>$request->input('etat_paiement'),'moyen_paiement'=>$request->input('moyen_paiement'),'no_cheque'=>$request->input('n_cheque'),'no_virement'=>$request->input('n_virement'),'type'=>$request->input('type')]);
         if ($request->hasFile('document')) {
             $path = $request->file('document')->store('purchase_invoices');
             $invoice->document = $path;
+            $invoice->save();
+        }
+        if ($request->hasFile('justif')) {
+            $path = $request->file('justif')->store('justif_paiement');
+            $invoice->justif = $path;
             $invoice->save();
         }
         if ($request->input('type')=='produit'){
@@ -160,6 +167,15 @@ class PurchaseInvoiceController extends Controller
         $invoice->moyen_paiement=null;
         $invoice->no_cheque=null;
         $invoice->no_virement=null;
+        if($invoice->document){
+            Storage::delete($invoice->document);
+            $invoice->document = null;
+        }
+        if($invoice->justif){
+            Storage::delete($invoice->justif);
+            $invoice->justif = null;
+        }
+
       }
 
       if($request->hasFile('document')){
@@ -168,6 +184,14 @@ class PurchaseInvoiceController extends Controller
         }
         $path = $request->file('document')->store('purchase_invoices');
         $invoice->document = $path;
+      }
+
+      if($request->hasFile('justif') && $request->input('etat_paiement') == 'Payée'   ){
+        if($invoice->justif){
+            Storage::delete($invoice->justif);
+        }
+        $path = $request->file('justif')->store('justif_paiement');
+        $invoice->justif = $path;
       }
 
       if($invoice->save()){
@@ -202,6 +226,11 @@ class PurchaseInvoiceController extends Controller
     {
         $invoice = PurchaseInvoice::find($id);
         return Storage::download($invoice->document);
+    }
+    public function downloadJustif(string $id)
+    {
+        $invoice = PurchaseInvoice::find($id);
+        return Storage::download($invoice->justif);
     }
 
     public function restore($id)

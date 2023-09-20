@@ -75,6 +75,21 @@
                             <input value="{{$invoice->no_virement}}" disabled  type="text" name="no_virement" id="no_virement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"   >
                         </div>
                         @endif
+                        @if ($invoice->justif)
+
+                        <div class="">
+                            <form action="{{route('purchase.downloadJustif',['id'=>$invoice->id])}}" method="get">
+                                @csrf
+                                <label  class="block mb-2 text-sm font-roboto text-blue-900 dark:text-white font-bold ">Justification de paiement </label>
+
+                                <button class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+                                    <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                                    <span>TÉLÉCHARGER</span>
+                                  </button>
+                            </form>
+                        </div>
+
+                        @endif
                     </div>
 
                         @if ($invoice->type == "service")
