@@ -12,9 +12,15 @@ use PDF;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:produit');
+        $this->middleware('permission:creer')->only(['create','store']);
+        $this->middleware('permission:editer')->only(['edit','update']);
+        $this->middleware('permission:archiver')->only(['destroy']);
+        $this->middleware('permission:archive')->only(['archive']);
+        $this->middleware('permission:restaurer')->only(['restore']);
+    }
     public function index()
     {
         $user = Auth::user();

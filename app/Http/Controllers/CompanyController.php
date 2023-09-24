@@ -11,9 +11,15 @@ use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:entreprise');
+        $this->middleware('permission:creer')->only(['create','store']);
+        $this->middleware('permission:editer')->only(['edit','update']);
+        $this->middleware('permission:voir')->only(['show']);
+        $this->middleware('permission:supprimer')->only(['destroy']);
+
+    }
     public function index()
     {
         if(!Auth::user()->company){

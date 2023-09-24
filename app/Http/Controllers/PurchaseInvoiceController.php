@@ -17,9 +17,18 @@ use function PHPSTORM_META\type;
 
 class PurchaseInvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:facture_achat');
+        $this->middleware('permission:creer')->only(['create','store']);
+        $this->middleware('permission:editer')->only(['edit','update']);
+        $this->middleware('permission:archiver')->only(['destroy']);
+        $this->middleware('permission:voir')->only(['show']);
+        $this->middleware('permission:archive')->only(['archive']);
+        $this->middleware('permission:restaurer')->only(['restore']);
+        $this->middleware('permission:supprimer')->only(['forcedelete']);
+
+    }
     public function index()
     {
         $invoices = PurchaseInvoice::paginate(5);

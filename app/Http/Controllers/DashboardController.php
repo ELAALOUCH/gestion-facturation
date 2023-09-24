@@ -14,6 +14,12 @@ use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class DashboardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:dashboard')->only('index');
+
+    }
     public function index()
     {
         $customersWithTotalht = Customer::select('customers.nom', DB::raw('SUM(invoices.total_ht) as total_ht_sum'))

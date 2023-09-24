@@ -10,6 +10,15 @@ use PDF;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:client');
+        $this->middleware('permission:creer')->only(['create','store']);
+        $this->middleware('permission:editer')->only(['edit','update']);
+        $this->middleware('permission:archiver')->only(['destroy']);
+        $this->middleware('permission:archive')->only(['archive']);
+        $this->middleware('permission:restaurer')->only(['restore']);
+    }
     public function index()
     {
         $customers= Customer::paginate(5);
@@ -145,7 +154,7 @@ class CustomerController extends Controller
     $excel->addRows($customers->toArray());
 
     $excel->toBrowser();
-    
+
     }
 
     public function exportPdf()

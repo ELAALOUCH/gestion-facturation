@@ -12,9 +12,15 @@ use PDF;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:fournisseur');
+        $this->middleware('permission:creer')->only(['create','store']);
+        $this->middleware('permission:editer')->only(['edit','update']);
+        $this->middleware('permission:archiver')->only(['destroy']);
+        $this->middleware('permission:archive')->only(['archive']);
+        $this->middleware('permission:restaurer')->only(['restore']);
+    }
 
     public function index()
     {
@@ -69,13 +75,7 @@ class SupplierController extends Controller
         return redirect()->route('supplier.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -202,7 +202,7 @@ class SupplierController extends Controller
     $suppliers = Supplier::all();
 
     $pdf = PDF::loadView('pdf.pdf-suppliers', ['suppliers' => $suppliers]);
-    
+
     return $pdf->download('suppliers.pdf');
     }
 
