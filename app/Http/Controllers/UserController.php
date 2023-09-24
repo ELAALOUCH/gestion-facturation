@@ -114,7 +114,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         if(User::findOrFail($id)->delete()){
-            Session::flash('status', "L'utilisateur a été supprimeé ");
+            Session::flash('status', "L'utilisateur a été supprimé ");
         }
         return redirect()->route('user.index');
 

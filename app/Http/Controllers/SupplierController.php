@@ -129,7 +129,7 @@ class SupplierController extends Controller
 
         $supplier->delete();
 
-        Session::flash('status', "Le fournisseur a été supprimé");
+        Session::flash('status', "Le fournisseur a été archivé");
     }
 
     return redirect()->route('supplier.index');

@@ -188,7 +188,7 @@ class InvoiceController extends Controller
       }
 
      if( $invoice->save()){
-        Session::flash('status', "La facture a été modifié avec succès");
+        Session::flash('status', "La facture a été modifiée avec succès");
       }
 
       return redirect()->route('invoice.index');
@@ -211,7 +211,7 @@ class InvoiceController extends Controller
     {
         if(Invoice::find($id)->forcedelete()){
 
-            Session::flash('status', "La facture a été supprimer avec succès");
+            Session::flash('status', "La facture a été supprimée avec succès");
 
             return redirect()->route('invoice.index');
         }
@@ -249,5 +249,6 @@ class InvoiceController extends Controller
 
     return view('invoices.index', compact('invoices','tab'));
     }
+
 
 }

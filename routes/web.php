@@ -110,6 +110,7 @@ Route::middleware(['auth','company.check'])->group(function () {
 
     Route::patch('invoice/{id}/restore',[InvoiceController::class,'restore'])->name('invoice.restore');
     Route::get('invoice.search', [InvoiceController::class,'search'])->name('invoice.search');
+
     // les routes des services
     Route::resource('service',ServiceController::class)->except(['show']);
     Route::get('service.archive',[ServiceController::class ,'archive'])->name('service.archive');
@@ -126,9 +127,10 @@ Route::middleware(['auth','company.check'])->group(function () {
     Route::patch('customer/{id}/restore',[CustomerController::class,'restore'])->name('customer.restore');
     Route::get('customer/export-suppliers', [CustomerController::class,'exportCustomers'])->name('customers.export');
     Route::get('customers/export-pdf', [CustomerController::class,'exportPdf'])->name('customer.export-pdf');
-    
+
     Route::get('setting',[SettingController::class,'show'])->name('setting.show');
 
+        Route::resource('customer',CustomerController::class)->except(['show']);
 
 
 });

@@ -142,11 +142,11 @@ class PurchaseInvoiceController extends Controller
     public function update(Request $request, string $id)
     {
 
+
         $validated = $request->validate([
             'fournisseur' => 'required',
             'date' => 'required|date',
             'etat_paiement' => 'required',
-            'type' => 'required',
             'moyen_paiement' =>'required_if:etat_paiement,Payée',
             'n_cheque' => '',
             'n_virement' => '',
@@ -219,6 +219,8 @@ class PurchaseInvoiceController extends Controller
       if($invoice->save()){
         Session::flash('status', "la facture a été modifiée avec succès");
       }
+
+
       return redirect()->route('purchase.index');
 
     }
