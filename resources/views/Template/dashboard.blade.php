@@ -82,7 +82,7 @@
 
   <aside id="logo-sidebar" class="fixed bg-blue-950 top-0 left-0 z-40 w-64 h-screen  transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 " aria-label="Sidebar">
 
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-blue-950 pt-4 ">
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-red-950 pt-4 ">
         <ul class="space-y-2 font-medium">
             @if (Auth::check() && Auth::user()->company)
             <li class="flex justify-center items-center pt-3 pb-5">
